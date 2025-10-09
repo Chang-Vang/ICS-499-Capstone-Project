@@ -1,0 +1,14 @@
+Category:
+American Fast Food
+
+Location:
+[0] 1770 Robert St S, West Saint Paul, MN 55118
+[1] 2090 Snelling Ave N, Roseville, MN 55113
+[2] 11820 Fountains Way, Maple Grove, MN 55369
+
+Menu Items:
+Chicken Sandwich, "Orginal Chicken Sandwich, White Butter Bun Buttered, Pickles", Entrée, $5.09
+Chicken Sandwich Meal, "Orginal Chicken Sandwich, White Butter Bun Buttered, Pickles with waffle fries with Medium Coke", Meal, $9.09
+Chicken Deluxe Sandwich, "Orginal Chicken Deluxe Sandwich, White Butter Bun Buttered, Pickles Tomato, Lettuce", Entrée, $5.79
+Chicken Deluxe Sandwich Meal, "Orginal Chicken Deluxe Sandwich, White Butter Bun Buttered, Pickles Tomato with waffle fries with Medium Coke, Lettuce", Entrée, $9.79
+Chicken Strip Meal - 3ct, "Chick-n-Strips, with waffle fries with Medium Coke, Lettuce", Entrée, $9.45
