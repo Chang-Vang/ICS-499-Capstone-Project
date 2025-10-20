@@ -3,7 +3,7 @@ package edu.metrostate.service;
 import edu.metrostate.migrations.Migrations;
 import edu.metrostate.model.BasicFoodItem;
 import edu.metrostate.model.Restaurant;
-import edu.metrostate.ui.ScrollPageController;
+//import edu.metrostate.ui.ScrollPageController;
 
 import java.io.Closeable;
 import java.sql.Connection;
