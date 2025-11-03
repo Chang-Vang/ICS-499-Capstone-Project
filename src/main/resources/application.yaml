@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: application
+  datasource:
+    url: jdbc:mysql://localhost:3306/application?createDatabaseIfNotExist=true
+    username: root
+    password: password
+stripe:
+  apiUrl: https://api.stripe.com
+  enabled: true
+  timeout: 1000
+  supported-currencies: USD,EUR,GBP
