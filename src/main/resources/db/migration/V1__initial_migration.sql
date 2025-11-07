@@ -1,6 +1,6 @@
 -- Drop tables if they already exist to avoid conflicts
-DROP TABLE IF EXISTS food_items;
-DROP TABLE IF EXISTS restaurant;
+drop table if exists food_items;
+drop table if exists restaurant;
 
 -- Create the 'restaurant' table
 create table restaurant

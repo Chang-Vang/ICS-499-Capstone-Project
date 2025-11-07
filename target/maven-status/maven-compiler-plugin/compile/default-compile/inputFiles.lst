@@ -1,4 +1,5 @@
 D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-499-Capstone-Project\src\main\java\com\ICS499\Application\Application.java
+D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-499-Capstone-Project\src\main\java\com\ICS499\Application\AuthenticationController.java
 D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-499-Capstone-Project\src\main\java\com\ICS499\Application\HomeController.java
 D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-499-Capstone-Project\src\main\java\com\ICS499\Application\model\BasicFoodItem.java
 D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-499-Capstone-Project\src\main\java\com\ICS499\Application\model\Customer\Customer.java
@@ -8,4 +9,6 @@ D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-
 D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-499-Capstone-Project\src\main\java\com\ICS499\Application\model\PaymentDetails.java
 D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-499-Capstone-Project\src\main\java\com\ICS499\Application\model\Restaurant.java
 D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-499-Capstone-Project\src\main\java\com\ICS499\Application\TestingTheDataBase.java
+D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-499-Capstone-Project\src\main\java\com\ICS499\Application\User.java
+D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-499-Capstone-Project\src\main\java\com\ICS499\Application\UserRepository.java
 D:\Documents\College Metropolitan State University 2024\FA25\Capstone Class\ICS-499-Capstone-Project\src\main\java\com\ICS499\Application\Util.java

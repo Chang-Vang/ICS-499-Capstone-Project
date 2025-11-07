@@ -9,14 +9,4 @@ public class HomeController {
     @Value("${spring.application.name}")
     private String appName;
 
-    @RequestMapping("/")
-    public String index(){
-        return "index.html";
-    }
-
-//    @RequestMapping("/login")
-//    public String login() {
-//        // Forward to static resource
-//        return "static/HomePage/HomePg.html";
-//    }
 }
