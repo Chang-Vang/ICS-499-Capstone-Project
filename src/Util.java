@@ -1,4 +1,4 @@
-package com.ICS499.Application;
+package edu.metrostate;
 
 import java.io.Closeable;
 
@@ -24,4 +24,3 @@ public class Util {
         }
     }
 }
-

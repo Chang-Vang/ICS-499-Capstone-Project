@@ -1,4 +1,4 @@
-package com.ICS499.Application.model;
+package edu.metrostate.model;
 
 import com.ICS499.Application.model.Customer.Customer;
 
