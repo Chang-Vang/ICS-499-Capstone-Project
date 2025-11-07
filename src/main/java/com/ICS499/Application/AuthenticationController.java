@@ -31,7 +31,7 @@ public class AuthenticationController {
         User user = userRepository.findByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
             model.addAttribute("email", email);
-            return "welcome";
+            return "redirect:dashboard/home";
         } else {
             model.addAttribute("error", "Invalid email or password");
             return "redirect:/login";

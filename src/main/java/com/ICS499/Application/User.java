@@ -15,9 +15,8 @@ import jakarta.persistence.Table;
 import lombok.ToString;
 
 @ToString
- @RequiredArgsConstructor
- @AllArgsConstructor
- @NoArgsConstructor
+@RequiredArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users", schema = "application")
 public class User {
