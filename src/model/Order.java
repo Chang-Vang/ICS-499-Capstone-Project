@@ -1,13 +1,15 @@
 package edu.metrostate.model;
 
+import com.ICS499.Application.model.Customer.Customer;
+
 public class Order {
     private Restaurant restaurant;
     private OrderItem[] orderItem;
     private Integer totalPrice;
-    private CustomerInfo customer;
+    private Customer customer;
     private PaymentDetails payment;
 
-    public Order(Restaurant r, OrderItem[] orderItems,Integer price, CustomerInfo cust, PaymentDetails pay ){
+    public Order(Restaurant r, OrderItem[] orderItems, Integer price, Customer cust, PaymentDetails pay ){
         this.restaurant = r;
         this.orderItem = orderItems;
         this.totalPrice = price;
@@ -15,8 +17,8 @@ public class Order {
         this.payment = pay;
      }
 
-     public void addCustomer(String name, String streetAddress,String city, String state, int zipCode, String phoneNum ){
-        CustomerInfo customer = new CustomerInfo(name, streetAddress, city, state, zipCode, phoneNum);
+     public void addCustomer(String name, String streetAddress,String city, String state, int zipCode, String phoneNum, String email ){
+        Customer customer = new Customer(name, streetAddress, city, state, zipCode, phoneNum, email);
      }
 
      public void addPayment(String ccNum, Integer ccv, String exp){

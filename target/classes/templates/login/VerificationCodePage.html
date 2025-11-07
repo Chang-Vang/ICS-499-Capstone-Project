@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>FoodApp</title>
+        <link rel="icon" href="">
+        <link rel="stylesheet" href="VerificationCodePage.css">
+    </head>
+    <body>
+        <div class="verificationbox">
+            <h1>Verification Code</h1>
+            <form action="VerifyCode" method="post">
+                <p>Enter the verification code sent to your email</p>
+                <input type="text" name="verificationcode" placeholder="Enter Verification Code" required><br>
+                <button type="button" onclick="verifyCode()">Verify Code</button>
+                <a href="LoginPage.html" style="padding:10px">Back to Login page</a>
+
+            </form>
+        </div>
+    </body>
+</html>

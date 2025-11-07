@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>UniEats</title>
+    <link rel="icon" th:href="@{/images/fav-1.png}">
+    <link rel="stylesheet" th:href="@{/auth/verification-code.css}">
+</head>
+<body>
+<div class="verificationbox">
+    <h1>Verification Code</h1>
+    <form th:action="@{/verify-code}" method="post">
+        <div>
+            <label for="verificationcode">Enter the verification code sent to your email</label>
+            <input id="verificationcode" type="text" name="verificationcode" placeholder="Enter Verification Code" required>
+        </div>
+        <div>
+            <!-- If verifyCode() is JavaScript, keep type="button" and implement the JS function -->
+            <!-- If form should submit, use type="submit" -->
+            <button type="submit">Verify Code</button>
+        </div>
+    </form>
+    <a th:href="@{/login}">Back to Login page</a>
+</div>
+</body>
+</html>
