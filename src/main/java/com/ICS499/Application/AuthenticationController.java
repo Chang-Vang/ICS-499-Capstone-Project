@@ -13,6 +13,11 @@ public class AuthenticationController {
     @Autowired
     private UserRepository userRepository;
 
+    @GetMapping("/")
+    public String index() {
+        return "auth/login"; // matches templates/auth/login.html
+    }
+
     @GetMapping("/login")
     public String showLoginForm() {
         return "auth/login"; // matches templates/auth/login.html

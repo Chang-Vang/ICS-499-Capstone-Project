@@ -1,18 +1,27 @@
 package com.ICS499.Application;
 
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.proxy.HibernateProxy;
-
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.hibernate.proxy.HibernateProxy;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.ToString;
+
 @ToString
-@RequiredArgsConstructor
-@AllArgsConstructor
-@NoArgsConstructor
+ @RequiredArgsConstructor
+ @AllArgsConstructor
+ @NoArgsConstructor
 @Entity
 @Table(name = "users", schema = "application")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
