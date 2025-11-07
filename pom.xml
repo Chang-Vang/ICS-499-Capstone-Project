@@ -77,11 +77,9 @@
         <plugins>
             <!-- Ensure compilation targets a Java version compatible with common runtimes -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <release>${java.version}</release>
-                </configuration>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>10.15.0</version>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
