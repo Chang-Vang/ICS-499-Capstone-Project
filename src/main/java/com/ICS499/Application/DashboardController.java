@@ -20,14 +20,6 @@ public class DashboardController {
     @Value("${spring.application.name}")
     private String appName;
 
-    @PostMapping("/home")
-    public void processHome(
-            @RequestParam String email,
-            Model model) {
-        User user = userRepository.findByEmail(email);
-        model.addAllAttributes("username", user.getEmail() );
-
-    }
     @GetMapping("/home")
     public String getHome(Model model) {
         // Set the username
@@ -50,7 +42,7 @@ public class DashboardController {
         );
         model.addAttribute("restaurants", restaurants);
 
-        return "dashboard/home";
+        return "/dashboard/home";
     }
 
     // Inner classes for data models

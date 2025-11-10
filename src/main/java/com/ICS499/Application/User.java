@@ -2,9 +2,7 @@ package com.ICS499.Application;
 
 import java.util.Objects;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,12 +10,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.ToString;
 
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
+//@Setter
+//@Getter
 @Table(name = "users", schema = "application")
 public class User {
 
