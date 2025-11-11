@@ -1,0 +1,28 @@
+@startuml
+actor User
+boundary Browser
+control AuthenticationController
+control DashboardController
+database UserRepository
+
+== Open login page ==
+User -> Browser: Navigate to /login (GET)
+Browser -> AuthenticationController: GET /login
+AuthenticationController --> Browser: view auth/login
+
+== Submit credentials ==
+User -> Browser: Submit email+password
+Browser -> AuthenticationController: POST /login(email, password)
+AuthenticationController -> UserRepository: findByEmail(email)
+UserRepository --> AuthenticationController: User or null
+
+alt Valid user and password match
+  AuthenticationController -> Browser: redirect:/home
+  Browser -> DashboardController: GET /home
+  DashboardController --> Browser: view /dashboard/home
+  Browser --> User: Show dashboard
+else Invalid email or password
+  AuthenticationController -> Browser: redirect:/login (with error)
+  Browser --> User: Show login with error
+end
+@enduml

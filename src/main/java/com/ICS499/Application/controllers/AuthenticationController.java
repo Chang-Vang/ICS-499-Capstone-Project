@@ -64,7 +64,9 @@ public class AuthenticationController {
         try {
             User user = new User();
             user.setEmail(form.getEmail());
+
             user.setPassword(form.getPassword()); // will be hashed inside service //needs implementation
+
             userService.registerUser(user);
             model.addAttribute("message", "Signup successful! Please login.");
             return "redirect:/login";

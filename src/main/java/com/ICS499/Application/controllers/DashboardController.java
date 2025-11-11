@@ -44,7 +44,8 @@ public class DashboardController {
         return "/dashboard/home";
     }
 
-    // Inner classes for data models
+    // Inner classes for data models,
+    // only used for example right now, need to integrate with database.
     public static class Offer {
         private String description;
         private String price;
