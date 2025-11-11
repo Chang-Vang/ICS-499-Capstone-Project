@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
+    background-color: rgb(243, 176, 121);
 }
 
 /* Main container */
@@ -92,7 +92,7 @@ body {
 
 /* Offer cards */
 .card, .restaurant-card {
-    min-width: 120px;
+    min-width: 200px;
     background-color: #e0ffe0;
     padding: 10px;
     border-radius: 10px;
