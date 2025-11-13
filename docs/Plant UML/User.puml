@@ -1,0 +1,38 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecaseArrowThickness 1
+skinparam usecaseFontSize 13
+
+actor "User" as User
+
+rectangle "ICS-499 Application" as System {
+  (Register Account) as UC_Register
+  (Log In) as UC_Login
+  (Log Out) as UC_Logout
+
+  (Recover Password) as UC_PwRecover
+  (Request Reset Link) as UC_PwRequest
+  (Set New Password) as UC_PwReset
+
+  (View Dashboard) as UC_Dashboard
+  (View Offers) as UC_Offers
+  (View Restaurants) as UC_Restaurants
+}
+
+User --> UC_Register
+User --> UC_Login
+User --> UC_Logout
+User --> UC_PwRecover
+User --> UC_Dashboard
+
+' Password recovery structure
+UC_PwRecover .> UC_PwRequest : <<include>>
+UC_PwRecover .> UC_PwReset   : <<include>>
+
+' Dashboard decomposition
+UC_Dashboard .> UC_Offers      : <<include>>
+UC_Dashboard .> UC_Restaurants : <<include>>
+
+@enduml

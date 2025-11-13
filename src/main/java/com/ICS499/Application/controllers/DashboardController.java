@@ -1,12 +1,11 @@
-package com.ICS499.Application;
+package com.ICS499.Application.controllers;
 
+import com.ICS499.Application.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +44,8 @@ public class DashboardController {
         return "/dashboard/home";
     }
 
-    // Inner classes for data models
+    // Inner classes for data models,
+    // only used for example right now, need to integrate with database.
     public static class Offer {
         private String description;
         private String price;

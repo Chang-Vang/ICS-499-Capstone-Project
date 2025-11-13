@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+@Builder
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -31,6 +32,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "restaurantOwner")
+    private boolean restaurantOwner;
+
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}
@@ -42,6 +46,10 @@ public class User {
     public String getPassword() {return password;}
 
     public void setPassword(String password) {this.password = password; }
+
+    public boolean isRestaurantOwner() {return restaurantOwner;}
+
+    public void setRestaurantOwner(boolean restaurantOwner) {this.restaurantOwner = restaurantOwner;}
 
     @Override
     public final boolean equals(Object o) {
