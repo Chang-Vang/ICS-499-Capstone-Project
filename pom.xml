@@ -93,7 +93,7 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>10.15.0</version>
+                <version>11.7.2</version>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
