@@ -1,0 +1,30 @@
+@startuml
+actor User
+boundary Browser
+control AuthenticationController
+control UserService
+database UserRepository
+
+== Open registration page ==
+User -> Browser: Navigate to /register (GET)
+Browser -> AuthenticationController: GET /register
+AuthenticationController --> Browser: view auth/register (with empty RegistrationForm)
+
+== Submit registration form ==
+User -> Browser: Submit email, password, confirm
+Browser -> AuthenticationController: POST /register(form)
+
+alt Passwords match
+  AuthenticationController -> UserService: registerUser(new User(email, password))
+  ' Inside service (conceptual): hash password, validate uniqueness, save
+  UserService -> UserRepository: save(User)
+  UserRepository --> UserService: persisted User
+  UserService --> AuthenticationController: success
+  AuthenticationController -> Browser: redirect:/login (with success message)
+  Browser --> User: Show login page
+else Passwords do not match
+  AuthenticationController --> Browser: view auth/register (with error)
+  Browser --> User: Show registration with error
+end
+
+@enduml
