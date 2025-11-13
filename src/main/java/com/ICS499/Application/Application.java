@@ -9,10 +9,18 @@ import java.net.URISyntaxException;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.context.ApplicationContext;
 
 
 @SpringBootApplication
+@ComponentScan(
+        excludeFilters = @ComponentScan.Filter(
+                type = FilterType.REGEX,
+                pattern = "com\\.ICS499\\.Application\\.DashboardController"
+        )
+)
 public class Application {
 
 
