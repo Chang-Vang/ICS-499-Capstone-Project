@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AuthenticationController {
@@ -36,13 +37,21 @@ public class AuthenticationController {
             @RequestParam String email,
             @RequestParam String password,
             Model model) {
-        User user = userRepository.findByEmail(email);
-        if (user != null && user.getPassword().equals(password)) {
-            model.addAttribute("email", email);
-            return "redirect:/home";
-        } else {
+        try {
+            User user = userRepository.findByEmail(email);
+            if (user != null && user.getPassword().equals(password)) {
+                model.addAttribute("email", email);
+                return "redirect:/home";
+            } else {
+                // Stay on the login page and show an error message
+                model.addAttribute("error", "Invalid email or password");
+                return "auth/login";
+            }
+        } catch (Exception ex) {
+            // In case of any repository/database error, do not redirect to /error.
+            // Show a generic login error on the same page so the user is informed.
             model.addAttribute("error", "Invalid email or password");
-            return "redirect:/login";
+            return "auth/login";
         }
     }
 
@@ -97,6 +106,18 @@ public class AuthenticationController {
                                       @RequestParam String newpassword,
                                       @RequestParam String confirmpassword) {
         // Logic to update password
+        return "redirect:/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        if (session != null) {
+            try {
+                session.invalidate();
+            } catch (IllegalStateException ignored) {
+                // session may already be invalidated; ignore
+            }
+        }
         return "redirect:/login";
     }
 }
