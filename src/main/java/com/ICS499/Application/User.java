@@ -2,7 +2,9 @@ package com.ICS499.Application;
 
 import java.util.Objects;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.proxy.HibernateProxy;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,14 +12,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.ToString;
 
-@Builder
 @ToString
-@RequiredArgsConstructor
-@AllArgsConstructor
+// @RequiredArgsConstructor
+ @AllArgsConstructor
+ @NoArgsConstructor
 @Entity
-//@Setter
-//@Getter
 @Table(name = "users", schema = "application")
 public class User {
 
@@ -32,9 +33,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "restaurantOwner")
-    private boolean restaurantOwner;
-
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}
@@ -46,10 +44,6 @@ public class User {
     public String getPassword() {return password;}
 
     public void setPassword(String password) {this.password = password; }
-
-    public boolean isRestaurantOwner() {return restaurantOwner;}
-
-    public void setRestaurantOwner(boolean restaurantOwner) {this.restaurantOwner = restaurantOwner;}
 
     @Override
     public final boolean equals(Object o) {
