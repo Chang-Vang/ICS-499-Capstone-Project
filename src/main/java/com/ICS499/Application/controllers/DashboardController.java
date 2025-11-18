@@ -1,5 +1,6 @@
 package com.ICS499.Application.controllers;
 
+import com.ICS499.Application.repositories.RestaurantRepository;
 import com.ICS499.Application.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,7 @@ public class DashboardController {
 
     @Autowired
     private UserRepository userRepository;
+    private RestaurantRepository restaurantRepository;
 
     @Value("${spring.application.name}")
     private String appName;
@@ -22,7 +24,7 @@ public class DashboardController {
     @GetMapping("/home")
     public String getHome(Model model) {
         // Set the username
-        model.addAttribute("username", "Jane Cooper");
+        model.addAttribute("username", model.getAttribute("email"));
 
         // Sample offers data
         List<Offer> offers = Arrays.asList(

@@ -33,6 +33,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "restaurant_owner")
+    private Boolean owner;
+
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}
@@ -44,6 +47,10 @@ public class User {
     public String getPassword() {return password;}
 
     public void setPassword(String password) {this.password = password; }
+
+    public Boolean owner() {return owner;}
+
+    public void setOwner(Boolean newValue) {this.owner = newValue; }
 
     @Override
     public final boolean equals(Object o) {

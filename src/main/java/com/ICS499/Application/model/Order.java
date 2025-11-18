@@ -3,14 +3,14 @@ package com.ICS499.Application.model;
 import com.ICS499.Application.model.Customer.Customer;
 
 public class Order {
-    private Restaurant restaurant;
+    private Restaurant_old restaurantOld;
     private OrderItem[] orderItem;
     private Integer totalPrice;
     private Customer customer;
     private PaymentDetails payment;
 
-    public Order(Restaurant r, OrderItem[] orderItems, Integer price, Customer cust, PaymentDetails pay ){
-        this.restaurant = r;
+    public Order(Restaurant_old r, OrderItem[] orderItems, Integer price, Customer cust, PaymentDetails pay ){
+        this.restaurantOld = r;
         this.orderItem = orderItems;
         this.totalPrice = price;
         this.customer = cust;
