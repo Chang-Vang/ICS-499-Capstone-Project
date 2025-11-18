@@ -1,3 +1,4 @@
+/* RESET */
 *{
     margin: 0;
     padding: 0;
@@ -5,10 +6,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* Wrapper same as login */
 .signup-wrapper {
     position: relative;
     width: 400px;
-    height: 400px;
+    height: 430px; /* slightly taller for 3 inputs */
     background-color: transparent;
     border: 2px solid #fff;
     border-radius: 20px;
@@ -19,70 +21,78 @@
     align-items: center;
     text-align: center;
     color: rgb(255, 249, 241);
+    margin-top: 120px; /* prevents overlap with navbar */
 }
 
-.wrapper .form-box{
-    width:100%;
+/* Form container identical to login */
+.form-box {
+    width: 100%;
     padding: 40px;
 }
 
+/* Title same as Login */
 .form-box h2 {
-    font-size: 1.45em;
-    text-align: center;
-    color: rgb(245, 245, 245, 100);
-    margin-bottom: 1rem;
-}
-.signup-form {
     font-size: 2em;
-    text-align: center;
     color: rgb(255, 249, 241);
+    margin-bottom: 10px;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    margin-bottom: .85rem;
-}
-
-
-label {
-    margin-bottom: 5px;
-    font-weight: 600;
-    font-size: 14px;
-    color: rgb(255, 249, 241);
-}
-
-
-input[type="text"],
-input[type="email"] {
+/* Input box same as login page */
+.input-box{
+    position: relative;
     width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 14px;
+    height: 50px;
+    border-bottom: 2px solid rgb(255, 249, 241);
+    margin: 30px 0;
+}
+
+.input-box label{
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: rgb(255, 249, 241);
+    font-size: 1em;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+    top: -5px;
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
     outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-size: 1em;
+    color: rgb(255, 249, 241);
+    padding: 0 35px 0 5px;
 }
 
-
-input:focus {
-    border-color: #9ca3af;
-    box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.25);
+.input-box .icon{
+    position: absolute;
+    right: 8px;
+    font-size:1.2em;
+    line-height: 57px;
 }
 
+/* Sign Up Button – same style as login button */
 .signup-btn {
-    /*width: 70%;*/
-    padding: 10px;
+    width: 100%;
+    height: 35px;
     background: rgb(241, 162, 98);
-    color: #111827;
     border: none;
     outline: none;
     border-radius: 8px;
+    font-size: 1em;
+    color: #111827;
     font-weight: 600;
     cursor: pointer;
-    font-size: 16px;
+    margin-top: 10px;
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
@@ -91,17 +101,17 @@ input:focus {
     color: rgb(241, 162, 98);
 }
 
+/* Back link formatted same as login footer */
 .back-link {
     display: inline-block;
     margin-top: 20px;
-    /*font-size: 14px;*/
+    font-size: 0.9em;
     font-weight: 600;
-    color: rgba(0, 0, 0, 1);
+    color: rgb(154, 74, 0);
     text-decoration: none;
-    transition: color 0.2s;
 }
 
 .back-link:hover {
-    color: rgba(0, 0, 0, 0.75);
     text-decoration: underline;
+    color: rgb(124, 69, 23);
 }

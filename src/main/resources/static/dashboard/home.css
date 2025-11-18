@@ -34,6 +34,28 @@ body {
     cursor: pointer;
 }
 
+/* Logout button styling */
+.logout-btn {
+    margin-left: 8px;
+    padding: 6px 12px;
+    background-color: #d32f2f; /* red */
+    color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    font-size: 0.9em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.logout-btn:hover {
+    background-color: #b71c1c;
+}
+
+.logout-btn:active {
+    opacity: 0.9;
+}
+
 /* Offer banner styles */
 .offer-banner {
     position: relative;
