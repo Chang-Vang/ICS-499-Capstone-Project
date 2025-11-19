@@ -36,11 +36,13 @@ public class AuthenticationController {
     public String processLogin(
             @RequestParam String email,
             @RequestParam String password,
+            HttpSession session,
             Model model) {
+        User user = userRepository.findByEmail(email);
         try {
-            User user = userRepository.findByEmail(email);
+
             if (user != null && user.getPassword().equals(password)) {
-                model.addAttribute("email", email);
+                session.setAttribute("email", email);
                 return "redirect:/home";
             } else {
                 // Stay on the login page and show an error message
@@ -73,10 +75,13 @@ public class AuthenticationController {
         try {
             User user = new User();
             user.setEmail(form.getEmail());
-
             user.setPassword(form.getPassword()); // will be hashed inside service //needs implementation
 
+            user.setFirstName(form.getFirstName());
+            user.setLastName(form.getLastName());
+
             userService.registerUser(user);
+
             model.addAttribute("message", "Signup successful! Please login.");
             return "redirect:/login";
         } catch (Exception e) {
@@ -91,23 +96,45 @@ public class AuthenticationController {
     }
 
     @PostMapping("/forgot-password")
-    public String handleForgotPassword(@RequestParam String email) {
+    public String handleForgotPassword(@RequestParam String email, Model model) {
         // Logic to send reset email
-        return "redirect:/login";
+        model.addAttribute("email", email);
+        return "redirect:/reset-password?email=" + email;
     }
 
     @GetMapping("/reset-password")
-    public String showResetPassword() {
+    public String showResetPassword(@RequestParam(required = false) String email,Model model) {
+        model.addAttribute("email", email);
         return "auth/reset-password";
     }
 
     @PostMapping("/reset-password")
     public String handleResetPassword(@RequestParam String email,
                                       @RequestParam String newpassword,
-                                      @RequestParam String confirmpassword) {
+                                      @RequestParam String confirmpassword,
+                                      Model model) {
         // Logic to update password
+        if (!newpassword.equals(confirmpassword)) {
+            model.addAttribute("error", "Passwords do not match");
+            model.addAttribute("email", email);
+            return "auth/reset-password";
+        }
+
+        // Check if user exists
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            model.addAttribute("error", "Email not found");
+            return "auth/reset-password";
+        }
+
+        //Update password
+        user.setPassword(newpassword);
+        userRepository.save(user);
+        // Success message
+        model.addAttribute("message", "Password reset successful! Please login.");
         return "redirect:/login";
     }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

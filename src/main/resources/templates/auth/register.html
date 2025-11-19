@@ -27,6 +27,23 @@
     <div class="form-box register">
         <h2 style=";">Register</h2>
         <form th:action="@{/register}" method="post" class="signup-form">
+            <!-- First Name Field -->
+            <div class="input-box">
+                <span class="icon"><ion-icon name="person"></ion-icon></span>
+
+                <input type="text" id="firstName" name="firstName" required>
+                <label for="firstName">First Name</label>
+            </div>
+
+            <!-- Last Name Field -->
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="person"></ion-icon>
+                </span>
+
+                <input type="text" id="lastName" name="lastName" required>
+                <label for="lastName">Last Name</label>
+            </div>
 
             <!-- Email Field -->
             <div class="input-box">
