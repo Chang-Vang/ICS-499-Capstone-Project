@@ -159,4 +159,17 @@ public class AuthenticationController {
         }
         return "redirect:/login";
     }
+
+    // restaurant owner
+    @GetMapping("/owner-login")
+    public String showOwnerLoginPage() {
+        return "auth/owner-login";
+    }
+
+    @GetMapping("/owner-register")
+    public String showOwnerRegister() {
+        return "auth/owner-register";
+    }
+
+
 }

@@ -1,4 +1,4 @@
-/* RESET */
+
 *{
     margin: 0;
     padding: 0;
@@ -6,11 +6,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Wrapper same as login */
 .signup-wrapper {
     position: relative;
     width: 400px;
-    height: 430px; /* slightly taller for 3 inputs */
+    height: 430px;
     background-color: transparent;
     border: 2px solid #fff;
     border-radius: 20px;
@@ -21,23 +20,22 @@
     align-items: center;
     text-align: center;
     color: rgb(255, 249, 241);
-    margin-top: 120px; /* prevents overlap with navbar */
+    margin-top: 120px;
 }
 
-/* Form container identical to login */
+
+
 .form-box {
     width: 100%;
     padding: 40px;
 }
 
-/* Title same as Login */
 .form-box h2 {
     font-size: 2em;
     color: rgb(255, 249, 241);
     margin-bottom: 10px;
 }
 
-/* Input box same as login page */
 .input-box{
     position: relative;
     width: 100%;
@@ -80,7 +78,7 @@
     line-height: 57px;
 }
 
-/* Sign Up Button – same style as login button */
+
 .signup-btn {
     width: 100%;
     height: 35px;
@@ -101,7 +99,7 @@
     color: rgb(241, 162, 98);
 }
 
-/* Back link formatted same as login footer */
+
 .back-link {
     display: inline-block;
     margin-top: 20px;

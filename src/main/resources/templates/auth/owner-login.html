@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>UniEats</title>
+    <title>UniEats - Owner Login</title>
     <link rel="icon" th:href="@{/images/fav-1.png}">
-    <link rel="stylesheet" th:href="@{/auth/login.css}">
+    <link rel="stylesheet" th:href="@{/auth/owner-login.css}">
 </head>
 <body>
 <header>
@@ -11,46 +11,49 @@
     <nav class="navigation">
         <a th:href="@{/about}">About</a>
         <a th:href="@{/contact}">Contact</a>
-        <button class="btnLogin-popup">Login</button>
+        <button class="btnLogin-popup">Owner Login</button>
     </nav>
 </header>
 
 <div class="wrapper">
     <div class="form-box login">
-        <h2 style="color: whitesmoke;">Login</h2>
-        <form th:action="@{/login}" method="post">
-            <div class="input-box">
-                    <span class="icon">
-                        <ion-icon name="mail"></ion-icon>
-                    </span>
-                 <input type="email" name="email" required>
-                <label>Email</label>
+        <h2 style="color: whitesmoke;">Owner Login</h2>
 
-            </div>
+        <form th:action="@{/owner-login}" method="post">
             <div class="input-box">
-                    <span class="icon">
-                        <ion-icon name="lock-closed"></ion-icon>
-                    </span>
+                <span class="icon">
+                    <ion-icon name="mail"></ion-icon>
+                </span>
+                <input type="email" name="email" required>
+                <label>Email</label>
+            </div>
+
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="lock-closed"></ion-icon>
+                </span>
                 <input type="password" name="password" required>
                 <label>Password</label>
-
             </div>
+
             <div class="remember-forgot">
                 <label><input type="checkbox" name="remember"> Remember me</label>
                 <a th:href="@{/forgot-password}">Forgot Password?</a>
             </div>
+
             <button type="submit" class="btn">Login</button>
+
             <div class="login-register">
-                <p>Don't have an account? <a  th:href="@{/register}">Register</a></p>
-                <p class="owner-link">
-                    Restaurant owner? <a th:href="@{/owner-login}">Click here</a>
-                </p>
+                <p>Don't have an owner account? <a th:href="@{/owner-register}">Click here</a></p>
             </div>
         </form>
     </div>
 </div>
+
 <script src="/script.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script type="module"
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

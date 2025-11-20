@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>UniEats - Owner Register</title>
+    <link rel="icon" th:href="@{/images/fav-1.png}">
+    <link rel="stylesheet" th:href="@{/auth/login.css}">
+</head>
+<body>
+<header>
+    <h2 class="logo">UniEats</h2>
+    <nav class="navigation">
+        <a th:href="@{/about}">About</a>
+        <a th:href="@{/contact}">Contact</a>
+        <button class="btnLogin-popup">Owner Register</button>
+    </nav>
+</header>
+
+<div class="owner-wrapper">
+    <div class="form-box login">
+        <h2 style="color: whitesmoke;">Owner Register</h2>
+
+        <form th:action="@{/owner-register}" method="post">
+
+            <!-- Restaurant Name -->
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="business-outline"></ion-icon>
+                </span>
+                <input type="text" name="restaurantName" required>
+                <label>Restaurant Name</label>
+            </div>
+
+            <!-- Location -->
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="location-outline"></ion-icon>
+                </span>
+                <input type="text" name="location" required>
+                <label>Location</label>
+            </div>
+
+            <!-- Category -->
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="restaurant-outline"></ion-icon>
+                </span>
+                <input type="text" name="category" required>
+                <label>Category</label>
+            </div>
+
+            <!-- Owner Email -->
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="mail"></ion-icon>
+                </span>
+                <input type="email" name="email" required>
+                <label>Owner Email</label>
+            </div>
+
+            <!-- Password -->
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="lock-closed"></ion-icon>
+                </span>
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="input-box">
+                <span class="icon">
+                    <ion-icon name="lock-closed"></ion-icon>
+                </span>
+                <input type="password" name="confirmPassword" required>
+                <label>Confirm Password</label>
+            </div>
+
+            <button type="submit" class="btn">Register</button>
+
+            <div class="login-register">
+                <p>Already an owner? <a th:href="@{/owner-login}">Login here</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/script.js"></script>
+<script type="module"
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
