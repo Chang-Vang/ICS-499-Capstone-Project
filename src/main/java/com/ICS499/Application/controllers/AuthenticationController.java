@@ -135,6 +135,18 @@ public class AuthenticationController {
         return "redirect:/login";
     }
 
+    @GetMapping("/about")
+    public String showAboutPage() {
+        return "auth/about";
+    }
+
+    @GetMapping("/contact")
+    public String showContactPage() {
+        return "auth/contact";
+    }
+
+
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
