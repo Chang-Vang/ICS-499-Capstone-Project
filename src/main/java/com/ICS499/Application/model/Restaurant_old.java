@@ -1,13 +1,13 @@
 package com.ICS499.Application.model;
 
-public class Restaurant {
+public class Restaurant_old {
     private int id;
     private String name;
     private String location;
     private String category;
     private Menu menu;
 
-    public Restaurant(String name, String location, String category, Menu menu){
+    public Restaurant_old(String name, String location, String category, Menu menu){
         this.name = name;
         this.location = location;
         this.category = category;

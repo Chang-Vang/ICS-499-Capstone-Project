@@ -1,17 +1,12 @@
 package com.ICS499.Application.controllers;
 
-import com.ICS499.Application.User;
 import com.ICS499.Application.repositories.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.web.exchanges.HttpExchange;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,21 +20,9 @@ public class DashboardController {
     private String appName;
 
     @GetMapping("/home")
-    public String getHome(Model model, HttpSession session) {
-
-
-        String email = (String) session.getAttribute("email");
-        if (email == null) {
-            return "redirect:/login";
-        }
-        User user = userRepository.findByEmail(email);
-
-        String fullName = "User";
-        if (user != null) {
-            fullName = user.getFirstName() + " " + user.getLastName();
-        }
-
-        model.addAttribute("fullName", fullName);
+    public String getHome(Model model) {
+        // Set the username
+        model.addAttribute("username", "Jane Cooper");
 
         // Sample offers data
         List<Offer> offers = Arrays.asList(
