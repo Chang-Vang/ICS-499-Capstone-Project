@@ -75,7 +75,7 @@ public class AuthenticationController {
         try {
             User user = new User();
             user.setEmail(form.getEmail());
-            user.setPassword(form.getPassword()); // will be hashed inside service //needs implementation
+            user.setPassword(form.getPassword());
 
             user.setFirstName(form.getFirstName());
             user.setLastName(form.getLastName());

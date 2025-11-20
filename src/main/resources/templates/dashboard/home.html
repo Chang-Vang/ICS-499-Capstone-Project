@@ -52,10 +52,18 @@
 
 <!-- Bottom Navigation -->
 <nav class="bottom-nav">
-    <button class="nav-btn">🏠<br/>Home</button>
-    <button class="nav-btn">🔍<br/>Search</button>
-    <button class="nav-btn">📝<br/>Order</button>
-    <button class="nav-btn">👤<br/>Profile</button>
-</nav>
+    <form action="/home" method="get" style="display: contents">
+        <button type="submit" class="nav-btn" title="Home">🏠<br/>Home</button>
+    </form>
+    <form action="/search" method="get" style="display: contents">
+        <button type="submit" class="nav-btn" title="Search">🔍<br/>Search</button>
+    </form>
+    <form action="/order" method="get" style="display: contents">
+        <button type="submit" class="nav-btn" title="Order">📝<br/>Order</button>
+    </form>
+    <form action="/profile" method="get" style="display: contents">
+        <button type="submit" class="nav-btn" title="Profile">👤<br/>Profile</button>
+    </form>
+    </nav>
 </body>
 </html>
