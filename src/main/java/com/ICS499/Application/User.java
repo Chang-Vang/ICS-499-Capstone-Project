@@ -39,6 +39,20 @@ public class User {
     @Column(name = "lastName")
     private String lastName;
 
+    @Column(name = "date_of_birth")
+    private String dateOfBirth;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
+
+
+
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}
@@ -56,6 +70,23 @@ public class User {
     public void setFirstName(String firstName) { this.firstName = firstName; }
 
     public String getLastName() { return lastName; }
+
+    public String getPhoneNumber() { return phoneNumber; }
+
+    public void setPhoneNumber(String phoneNumber) {  this.phoneNumber = phoneNumber; }
+
+    public String getDateOfBirth() { return dateOfBirth; }
+
+    public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+
+    public String getGender() { return gender; }
+
+    public void setGender(String gender) { this.gender = gender ;}
+
+    public String getAddress() { return address; }
+
+    public void setAddress(String address) { this.address = address; }
+
 
     public void setLastName(String lastName) { this.lastName = lastName; }
     @Override

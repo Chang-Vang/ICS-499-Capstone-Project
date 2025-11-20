@@ -3,11 +3,15 @@ package com.ICS499.Application.controllers;
 import com.ICS499.Application.User;
 import com.ICS499.Application.repositories.UserRepository;
 import jakarta.servlet.http.HttpSession;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +22,8 @@ public class DashboardController {
     @Autowired
     private UserRepository userRepository;
 
+    @Setter
+    @Getter
     @Value("${spring.application.name}")
     private String appName;
 
@@ -30,7 +36,7 @@ public class DashboardController {
         }
         User user = userRepository.findByEmail(email);
 
-        // Build a safe full name (no "null null")
+        // Build a safe full name (no "null")
         String fullName = "User";
         if (user != null) {
             String first = user.getFirstName();
@@ -67,40 +73,50 @@ public class DashboardController {
     }
 
     // Inner classes for data models,
-    // only used for example right now, need to integrate with database.
-    public static class Offer {
-        private String description;
-        private String price;
+        // only used for example right now, need to integrate with database.
+        public record Offer(String description, String price) {
 
-        public Offer(String description, String price) {
-            this.description = description;
-            this.price = price;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public String getPrice() {
-            return price;
-        }
     }
 
-    public static class Restaurant {
-        private String name;
-        private double rating;
+    public record Restaurant(String name, double rating) {
 
-        public Restaurant(String name, double rating) {
-            this.name = name;
-            this.rating = rating;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public double getRating() {
-            return rating;
-        }
     }
+    // profile
+    @GetMapping("/profile")
+    public String getProfile(Model model, HttpSession session) {
+        String email = (String) session.getAttribute("email");
+        if (email == null) {
+            return "redirect:/login";
+        }
+
+        User user = userRepository.findByEmail(email);
+        model.addAttribute("user", user);
+        return "dashboard/profile";
+    }
+    @PostMapping("/profile/update")
+    public String updateProfile(
+            @RequestParam String firstName,
+            @RequestParam String lastName,
+            @RequestParam String address,
+            @RequestParam String gender,
+            @RequestParam String dateOfBirth,
+            @RequestParam String phoneNumber,
+            HttpSession session) {
+
+        String email = (String) session.getAttribute("email");
+        User user = userRepository.findByEmail(email);
+
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setAddress(address);
+        user.setGender(gender);
+        user.setDateOfBirth(dateOfBirth);
+        user.setPhoneNumber(phoneNumber);
+
+        userRepository.save(user);
+
+        return "redirect:/home";
+    }
+
+
 }

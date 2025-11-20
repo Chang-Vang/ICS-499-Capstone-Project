@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Profile - UniEats</title>
+
+    <link rel="stylesheet" th:href="@{/dashboard/profile.css}">
+</head>
+<body>
+
+<div class="profile-container">
+    <h1 class="profile-title">User Profile</h1>
+
+    <form th:action="@{/profile/update}" method="post" class="profile-form">
+
+        <!-- First Name -->
+        <div class="profile-field">
+            <label for="firstName">First Name</label>
+            <input id="firstName" name="firstName" type="text"
+                   th:value="${user.firstName}">
+        </div>
+
+        <!-- Last Name -->
+        <div class="profile-field">
+            <label for="lastName">Last Name</label>
+            <input id="lastName" name="lastName" type="text"
+                   th:value="${user.lastName}">
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="profile-field">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input id="dateOfBirth" name="dateOfBirth" type="date"
+                   th:value="${user.dateOfBirth}">
+        </div>
+
+        <!-- Gender -->
+        <div class="profile-field">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender">
+                <option value="" th:selected="${user.gender == null}">Select</option>
+                <option value="Male" th:selected="${user.gender == 'Male'}">Male</option>
+                <option value="Female" th:selected="${user.gender == 'Female'}">Female</option>
+                <option value="Other" th:selected="${user.gender == 'Other'}">Prefer not to say</option>
+            </select>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="profile-field">
+            <label for="phoneNumber">Phone Number</label>
+            <input id="phoneNumber"
+                   name="phoneNumber"
+                   type="tel"
+                   placeholder="123-456-7890"
+                   th:value="${user.phoneNumber}">
+        </div>
+
+        <!-- Address -->
+        <div class="profile-field">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="3"
+                      th:text="${user.address}"></textarea>
+        </div>
+
+        <button type="submit" class="save-btn">Save Changes</button>
+
+    </form>
+
+        <form th:action="@{/reset-password(email=${user.email})}" method="get">
+            <button type="submit" class="secondary-btn">Change Password</button>
+        </form>
+
+</div>
+
+</body>
+</html>
