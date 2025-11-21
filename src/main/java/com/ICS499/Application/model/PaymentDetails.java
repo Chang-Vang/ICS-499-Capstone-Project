@@ -1,9 +1,13 @@
 package com.ICS499.Application.model;
 
+import lombok.Setter;
+
 public class PaymentDetails {
 
     private String ccNumber;
     private Integer ccv;
+    // TODO: check limits for valid EXP Date
+    @Setter
     private String exp;
 
     public PaymentDetails(String ccNumber, String exp, Integer CCV) {
@@ -32,11 +36,6 @@ public class PaymentDetails {
     public void setCCV(int newValue) {
         // TODO: check limits on CCV value, ie 3 - 4 characters
         ccv = newValue;
-    }
-
-    public void setExp(String newValue) {
-        // TODO: check limits for valid EXP Date
-        exp = newValue;
     }
 
     public boolean validate() {

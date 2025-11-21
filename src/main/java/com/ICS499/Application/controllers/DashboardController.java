@@ -1,6 +1,8 @@
 package com.ICS499.Application.controllers;
 
 import com.ICS499.Application.User;
+import com.ICS499.Application.model.OrderItem;
+import com.ICS499.Application.repositories.FoodItemRepository;
 import com.ICS499.Application.repositories.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
@@ -15,12 +17,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DashboardController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private FoodItemRepository foodItemRepository;
 
     @Setter
     @Getter
@@ -53,12 +58,16 @@ public class DashboardController {
         model.addAttribute("fullName", fullName);
 
         // Sample offers data
-        List<Offer> offers = Arrays.asList(
-                new Offer("The spicy burger", "$10.00"),
-                new Offer("Vegan salad", "$8.50"),
-                new Offer("Pizza combo", "$12.00"),
-                new Offer("Pasta special", "$9.75")
-        );
+        var allItems = foodItemRepository.findAll();
+        List<Offer> offers = allItems.stream()
+                .limit(7)
+                .map(item -> new Offer(
+                        item.getId(),
+                        item.getName(),
+                        "$" + item.getPrice()
+                ))
+                .toList();
+
         model.addAttribute("offers", offers);
 
         // Sample restaurants data
@@ -69,12 +78,15 @@ public class DashboardController {
         );
         model.addAttribute("restaurants", restaurants);
 
+        int cartCount = getCartCount(session);
+        model.addAttribute("cartCount", cartCount);
+
         return "/dashboard/home";
     }
 
     // Inner classes for data models,
-        // only used for example right now, need to integrate with database.
-        public record Offer(String description, String price) {
+    // only used for example right now, need to integrate with database.
+    public record Offer(Long foodId, String description, String price) {
 
     }
 
@@ -91,6 +103,10 @@ public class DashboardController {
 
         User user = userRepository.findByEmail(email);
         model.addAttribute("user", user);
+
+        int cartCount = getCartCount(session);
+        model.addAttribute("cartCount", cartCount);
+
         return "dashboard/profile";
     }
     @PostMapping("/profile/update")
@@ -117,6 +133,18 @@ public class DashboardController {
 
         return "redirect:/home";
     }
+
+    private int getCartCount(HttpSession session) {
+        Map<Long, OrderItem> cart = (Map<Long, OrderItem>) session.getAttribute("cart");
+        if (cart == null) { return 0; }
+        int count = 0;
+        for (OrderItem item : cart.values()) {
+            count += item.getQuantity();
+        }
+        return count;
+    }
+
+
 
 
 }

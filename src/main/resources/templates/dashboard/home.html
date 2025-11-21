@@ -13,7 +13,15 @@
         <h1>Welcome, <span th:text="${fullName}">User</span></h1>
         <div class="header-icons">
             <button class="icon-btn">🔔</button>
-            <button class="icon-btn">🛒</button>
+
+            <div class="cart-wrapper" onclick="window.location.href='/cart'">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-count"
+                      th:if="${cartCount != null and cartCount > 0}"
+                      th:text="${cartCount}">0</span>
+            </div>
+
+
             <a href="/logout" class="logout-btn" title="Log out">Logout</a>
         </div>
     </header>
@@ -34,6 +42,11 @@
             <div class="card" th:each="offer : ${offers}">
                 <p th:text="${offer.description}">Offer description</p>
                 <p th:text="${offer.price}">$0.00</p>
+
+                <form th:action="@{/cart/add}" method="post">
+                    <input type="hidden" name="foodId" th:value="${offer.foodId()}">
+                    <button type="submit" class="order-btn">Add to Cart</button>
+                </form>
             </div>
         </div>
     </section>
