@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart - UniEats</title>
+    <link rel="stylesheet" th:href="@{/cart/cart.css}">
+</head>
+<body>
+
+<h1>Your Cart</h1>
+
+<div class="cart-container">
+
+    <!-- If cart empty -->
+    <div th:if="${cartItems.size() == 0}" class="empty-cart">
+        <p>Your cart is empty 🍔</p>
+        <a href="/home" class="back-btn">Continue Shopping</a>
+    </div>
+
+    <!-- If cart has items -->
+    <div th:each="item : ${cartItems}" class="cart-item">
+
+        <div class="item-info">
+            <h3 th:text="${item.food.name}">Food Name</h3>
+            <p th:text="'$' + ${item.food.price}"></p>
+        </div>
+
+        <!-- Quantity controls -->
+        <div class="item-actions">
+        <div class="quantity-controls">
+            <form th:action="@{/cart/decrease}" method="post">
+                <input type="hidden" name="foodId" th:value="${item.food.id}">
+                <button class="qty-btn">-</button>
+            </form>
+
+            <span class="qty" th:text="${item.quantity}"></span>
+
+            <form th:action="@{/cart/increase}" method="post">
+                <input type="hidden" name="foodId" th:value="${item.food.id}">
+                <button class="qty-btn">+</button>
+            </form>
+        </div>
+            <!-- Remove button -->
+            <form th:action="@{/cart/remove}" method="post" class="remove-form">
+                <input type="hidden" name="foodId" th:value="${item.food.id}">
+                <button class="remove-btn">Remove</button>
+            </form>
+        </div>
+
+
+
+    </div>
+
+    <!-- Cart total -->
+    <div th:if="${cartItems.size() > 0}" class="cart-total">
+        <h2>Total: <span th:text="${#numbers.formatDecimal(total, 0, 2)}">0.00</span></h2>
+
+        <a href="/checkout" class="checkout-btn">Checkout</a>
+        <a href="/home" class="back-btn">Keep Shopping</a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -59,6 +59,46 @@ public class CartController {
             cartCount += item.getQuantity();
         }
         model.addAttribute("cartCount", cartCount);
+
+        //total price
+        double total = 0;
+        for (OrderItem item : items) {
+            total += item.getFood().getPrice() * item.getQuantity();
+        }
+        model.addAttribute("total", total);
+
         return "cart/cart";
     }
+
+    @PostMapping("/cart/increase")
+    public String increaseQuantity(@RequestParam Long foodId, HttpSession session) {
+        Map<Long, OrderItem> cart = (Map<Long, OrderItem>) session.getAttribute("cart");
+        if (cart != null && cart.containsKey(foodId)) {
+            OrderItem item = cart.get(foodId);
+            item.setQuantity(item.getQuantity() + 1);
+        }
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/cart/decrease")
+    public String decreaseQuantity(@RequestParam Long foodId, HttpSession session) {
+        Map<Long, OrderItem> cart = (Map<Long, OrderItem>) session.getAttribute("cart");
+        if (cart != null && cart.containsKey(foodId)) {
+            OrderItem item = cart.get(foodId);
+            if (item.getQuantity() > 1) {
+                item.setQuantity(item.getQuantity() - 1);
+            }
+        }
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/cart/remove")
+    public String removeItem(@RequestParam Long foodId, HttpSession session) {
+        Map<Long, OrderItem> cart = (Map<Long, OrderItem>) session.getAttribute("cart");
+        if (cart != null) {
+            cart.remove(foodId);
+        }
+        return "redirect:/cart";
+    }
+
 }
