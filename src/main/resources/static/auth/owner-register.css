@@ -1,34 +1,193 @@
-@import url('login.css');
+/*@import url('login.css');*/
+/* ------------- RESET ------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ------------- BODY ------------- */
+body {
+    display: block; /* override any flex body from other pages */
+    height: auto;
+    margin: 0;
+    background: url('/images/background.png') no-repeat center/cover;
+    font-family: 'Inter', sans-serif;
+    padding-top: 80px;  /* space for the fixed header */
+}
+
+/* ------------- HEADER (same style as main register page) ------------- */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 80px;
+    background: rgb(241, 162, 98);   /* orange bar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.navigation a {
+    position: relative;
+    font-size: 1em;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 30px;
+}
+
+.navigation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: #ffffff;
+    transition: width 0.3s ease;
+}
+
+.navigation a:hover::after {
+    width: 100%;
+}
+
+.btnLogin-popup {
+    margin-left: 30px;
+    padding: 8px 25px;
+    font-size: 1em;
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btnLogin-popup:hover {
+    background: #ffffff;
+    color: rgb(241, 162, 98);
+}
+
+/* ------------- OWNER REGISTER CARD (glass panel) ------------- */
 .owner-wrapper {
-    /*
-    width: 450px;
-    align-items: flex-start;
+    position: relative;
+    max-width: 430px;
+    width: 90%;
+    margin: 130px auto 40px; /* center horizontally, push down from header */
+    background-color: rgba(255, 255, 255, 0.08);
     border: 2px solid #ffffff;
     border-radius: 20px;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-    height: auto;
-    min-height: 650px;
-    display: block;
-    padding: 40px 30px;
-    */
-    position: relative;
-    width: 400px;
-    height: 400px;
-    background-color: transparent;
-    border: 2px solid #fff;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
     color: rgb(255, 249, 241);
 }
 
+/* inner form box */
 .form-box {
     width: 100%;
     padding: 40px;
+    text-align: left;
 }
 
+.form-box h2 {
+    font-size: 2em;
+    color: rgb(255, 249, 241);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* ------------- INPUTS ------------- */
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid rgb(255, 249, 241);
+    margin: 30px 0;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: rgb(255, 249, 241);
+    font-size: 0.95em;
+    pointer-events: none;
+    transition: 0.4s;
+}
+
+/* float label when typing or when input has value */
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+    top: -5px;
+    font-size: 0.8em;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: rgb(255, 249, 241);
+    padding: 0 35px 0 5px;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    line-height: 57px;
+    color: rgb(255, 249, 241);
+}
+
+/* ------------- BUTTON ------------- */
+.btn {
+    width: 100%;
+    height: 40px;
+    background: rgb(241, 162, 98);
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    font-size: 1em;
+    color: #111827;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover {
+    background: rgb(255, 249, 241);
+    color: rgb(241, 162, 98);
+}
+
+/* ------------- LINKS UNDER FORM ------------- */
+.login-register {
+    font-size: 0.9em;
+    color: rgb(255, 249, 241);
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+.login-register a {
+    color: rgb(255, 249, 241);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-register a:hover {
+    text-decoration: underline;
+}
