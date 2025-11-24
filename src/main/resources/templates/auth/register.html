@@ -4,11 +4,14 @@
     <meta charset="UTF-8" />
     <title>UniEats - Sign Up</title>
     <link rel="icon" th:href="@{/images/fav-1.png}">
+
+    <!-- Brought login before register so that register.css overrides login.css  -->
+    <!--For some reason, including  the styling for login.css fixes the navbar styling-->
+    <!-- THEY ARE THE SAME HEADER WITH SAME STYLING THOUGH!!! -->
+    <link rel="stylesheet" th:href="@{/auth/login.css}">
     <link rel="stylesheet" th:href="@{/auth/register.css}">
 
-<!--For some reason, including  the styling for login.css fixes the navbar styling-->
-<!-- THEY ARE THE SAME HEADER WITH SAME STYLING THOUGH!!! -->
-    <link rel="stylesheet" th:href="@{/auth/login.css}">
+
 
 
 </head>
@@ -23,61 +26,112 @@
     </nav>
 </header>
 
-<div class="signup-wrapper">
-    <div class="form-box register">
-        <h2 style=";">Register</h2>
-        <form th:action="@{/register}" method="post" class="signup-form">
-            <!-- First Name Field -->
-            <div class="input-box">
-                <span class="icon"><ion-icon name="person"></ion-icon></span>
+<div class="signup-container">
+    <div class="signup-wrapper">
+        <div class="form-box register">
+            <h2 style=";">Register</h2>
+            <form th:action="@{/register}" method="post" class="signup-form">
 
-                <input type="text" id="firstName" name="firstName" required>
-                <label for="firstName">First Name</label>
-            </div>
+                <!-- First Name Field -->
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <input type="text" id="firstName" name="firstName" required>
+                    <label for="firstName">First Name</label>
+                </div>
 
-            <!-- Last Name Field -->
-            <div class="input-box">
-                <span class="icon">
-                    <ion-icon name="person"></ion-icon>
-                </span>
+                <!-- Last Name Field -->
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <input type="text" id="lastName" name="lastName"  required>
+                    <label for="lastName">Last Name</label>
+                </div>
 
-                <input type="text" id="lastName" name="lastName" required>
-                <label for="lastName">Last Name</label>
-            </div>
+                <!-- Email Field -->
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="email" id="email" name="email"  required>
+                    <label for="email">Email</label>
+                </div>
 
-            <!-- Email Field -->
-            <div class="input-box">
-                <span class="icon">
-                        <ion-icon name="mail"></ion-icon>
-                </span>
+<!--                &lt;!&ndash;  Address Line 1   &ndash;&gt;-->
+<!--                <div class="input-box">-->
+<!--                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>-->
+<!--                    <input type="text" id="addressLine1" name="addressLine1" required>-->
+<!--                    <label for="addressLine1">Address</label>-->
+<!--                </div>-->
 
-                <input type="email" id="email" name="email"  required>
-                <label for="email">Email</label>
-            </div>
+                <!--    Address -->
+                <div class="input-box textarea-box">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <textarea id="address" name="address" placeholder=" " required></textarea>
+                    <label for="address">
+                        Address<br>
+                        <span style="font-size: 0.85em; opacity: 0.8;"></span>
+                    </label>
+                </div>
 
-            <!-- Password Field -->
-            <div class="input-box">
-                <span class="icon">
-                        <ion-icon name="lock-closed"></ion-icon>
-                </span>
+                <!--   City  -->
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="business"></ion-icon></span>
+                    <input type="text" id="city" name="city" required>
+                    <label for="city">City</label>
+                </div>
 
-                <input type="password" id="password" name="password"  required>
-                <label for="password">Password</label>
-            </div>
+                <!--   State   -->
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="pin"></ion-icon></span>
+                    <input type="text" id="state" name="state" required>
+                    <label for="state">State</label>
+                </div>
 
-            <!-- Confirm Password Field -->
-            <div class="input-box">
-                <span class="icon">
-                        <ion-icon name="lock-closed"></ion-icon>
-                </span>
+                <!-- Zip Code -->
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="trail-sign"></ion-icon></span>
+                    <input type="text" id="zipCode" name="zipCode" required>
+                    <label for="zipCode">Zip Code</label>
+                </div>
 
-                <input type="password" id="confirmPassword" name="confirmPassword"  required>
-                <label for="confirmPassword">Confirm Password</label>
-            </div>
+                <!-- Phone Number -->
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="call"></ion-icon></span>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                    <label for="phoneNumber">Phone Number</label>
+                </div>
 
-            <button type="submit" class="signup-btn">Sign Up</button>
-        </form>
-        <a th:href="@{/login}" class="back-link">Back to Login page</a>
+                <!-- Password Field -->
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" id="password" name="password" required>
+                    <label for="password">Password</label>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div class="input-box">
+                     <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <label for="confirmPassword">Confirm Password</label>
+                </div>
+
+
+                <!--  Role selection  -->
+                <div class="role-box">
+                  <label class="role-label">Select Role</label>
+
+                    <div class="role-options">
+                        <label class="role-option">
+                            <input type="radio" name="role" value="CUSTOMER"  required>
+                            Student / Customer
+                        </label>
+                        <label class="role-option">
+                            <input type="radio" name="role" value="OWNER" required>
+                            Restaurent Owner
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+            <a th:href="@{/login}" class="back-link">Back to Login page</a>
+        </div>
     </div>
 </div>
 <script src="/script.js"></script>
