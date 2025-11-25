@@ -1,10 +1,63 @@
+-- Rebased migration script combining previous V1 to V7 migrations
+
+-- Drop tables if they already exist to avoid conflicts
+-- This has to be done from the child to parent due to foreign key constraints
+DROP TABLE IF EXISTS food_items;
+DROP TABLE IF EXISTS restaurant;
+DROP TABLE IF EXISTS address;
+DROP TABLE IF EXISTS users;
+
+-- Create 'users' table
+CREATE TABLE users (
+   id BIGINT AUTO_INCREMENT PRIMARY KEY,
+   email VARCHAR(255) NOT NULL,
+   password VARCHAR(255) NOT NULL,
+   restaurant_owner BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+-- Insert initial data into 'users'
+INSERT INTO users (email, password, restaurant_owner) VALUES
+  ('user1@test.com', 'password1', TRUE),
+  ('user2@test.com', 'password2', FALSE);
+
+-- Create 'address' table with foreign key to 'users'
+CREATE TABLE address (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    street VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    state VARCHAR(255) NOT NULL,
+    zipcode BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    CONSTRAINT address_users_id_fk FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Create 'restaurant' table with foreign key to 'users'
+CREATE TABLE restaurant (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    user_id BIGINT NOT NULL,
+    CONSTRAINT restaurant_users_id_fk FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Create 'food_items' table with foreign key to 'restaurant'
+CREATE TABLE food_items (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255),
+    category VARCHAR(255) NOT NULL,
+    price FLOAT NOT NULL,
+    restaurant_id BIGINT NOT NULL,
+    CONSTRAINT foodItems_restaurant_id_fk FOREIGN KEY (restaurant_id) REFERENCES restaurant(id)
+);
 
 -- Insert sample data into 'restaurant'
-INSERT INTO restaurant (name, location, category) VALUES
-  ('Chick-Fil-A', '1770 Robert St S, West Saint Paul, MN 55118', 'American Fast Food'),
-  ('Chipotle', '5901 94th Ave N Ste 101, Brooklyn Park, MN 55443', 'Mexican Fast Food'),
-  ('McDonalds', '9695 Xenia Avenue North, Brooklyn Park, MN 55443', 'American Fast Food'),
-  ('China Hope', 'Edinburgh Plaza, 1428 85th Ave. N., Brooklyn Park, MN 55444', 'Chinese');
+INSERT INTO restaurant (name, location, category, user_id) VALUES
+   ('Chick-Fil-A', '1770 Robert St S, West Saint Paul, MN 55118', 'American Fast Food', 1),
+   ('Chipotle', '5901 94th Ave N Ste 101, Brooklyn Park, MN 55443', 'Mexican Fast Food', 1),
+   ('McDonalds', '9695 Xenia Avenue North, Brooklyn Park, MN 55443', 'American Fast Food', 1),
+   ('China Hope', 'Edinburgh Plaza, 1428 85th Ave. N., Brooklyn Park, MN 55444', 'Chinese', 1);
 
 -- Insert sample data into 'food_items'
 INSERT INTO food_items (name, description, category, price, restaurant_id) VALUES

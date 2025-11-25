@@ -1,7 +1,9 @@
 package com.ICS499.Application.controllers;
 
 import com.ICS499.Application.User;
-import com.ICS499.Application.dto.RegistrationForm;
+import com.ICS499.Application.dto.RegistrationFormForCustomer;
+import com.ICS499.Application.model.Address;
+import com.ICS499.Application.repositories.AddressRepository;
 import com.ICS499.Application.repositories.UserRepository;
 import com.ICS499.Application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class AuthenticationController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private AddressRepository addressRepository;
 
     @GetMapping("/")
     public String index() {
@@ -43,6 +47,9 @@ public class AuthenticationController {
 
             if (user != null && user.getPassword().equals(password)) {
                 session.setAttribute("email", email);
+                if (Boolean.TRUE.equals(user.getIsRestaurant_owner())) {
+                    return "redirect:/owner/dashboard";
+                }
                 return "redirect:/home";
             } else {
                 // Stay on the login page and show an error message
@@ -60,13 +67,13 @@ public class AuthenticationController {
     // Show registration page
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
-        model.addAttribute("registrationForm", new RegistrationForm());
-        return "auth/register"; // your template path
+        model.addAttribute("registrationForm", new RegistrationFormForCustomer());
+        return "auth/register";
     }
 
     // Handle registration form submission
     @PostMapping("/register")
-    public String handleRegister(@ModelAttribute("registrationForm") RegistrationForm form, Model model) {
+    public String handleRegister(@ModelAttribute("registrationForm") RegistrationFormForCustomer form, Model model) {
         // Basic validation
         if (!form.getPassword().equals(form.getConfirmPassword())) {
             model.addAttribute("error", "Passwords do not match");
@@ -76,20 +83,28 @@ public class AuthenticationController {
             User user = new User();
             user.setEmail(form.getEmail());
             user.setPassword(form.getPassword());
-
+            user.setPhoneNumber(form.getPhoneNumber());
             user.setFirstName(form.getFirstName());
             user.setLastName(form.getLastName());
+            userService.registerCustomer(user);
 
-            userService.registerUser(user);
+            Address address = new Address();
+            address.setStreet(form.getStreet());
+            address.setCity(form.getCity());
+            address.setState(form.getState());
+            address.setZipCode(Long.valueOf(form.getZipCode()));
+            address.setUser(user);
+            addressRepository.save(address);
 
-            model.addAttribute("message", "Signup successful! Please login.");
-            return "redirect:/login";
+            model.addAttribute("success", "Signup successful! Please login.");
+            System.out.println("User registered: " + user.getEmail());
+            return "auth/login";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
+            System.out.println("Registration error: " + e.getMessage());
             return "auth/register";
         }
     }
-
     @GetMapping("/forgot-password")
     public String showForgotPassword() {
         return "auth/forgot-password";
@@ -110,11 +125,11 @@ public class AuthenticationController {
 
     @PostMapping("/reset-password")
     public String handleResetPassword(@RequestParam String email,
-                                      @RequestParam String newpassword,
-                                      @RequestParam String confirmpassword,
+                                      @RequestParam String newPassword,
+                                      @RequestParam String confirmPassword,
                                       Model model) {
         // Logic to update password
-        if (!newpassword.equals(confirmpassword)) {
+        if (!newPassword.equals(confirmPassword)) {
             model.addAttribute("error", "Passwords do not match");
             model.addAttribute("email", email);
             return "auth/reset-password";
@@ -128,7 +143,7 @@ public class AuthenticationController {
         }
 
         //Update password
-        user.setPassword(newpassword);
+        user.setPassword(newPassword);
         userRepository.save(user);
         // Success message
         model.addAttribute("message", "Password reset successful! Please login.");
@@ -144,8 +159,6 @@ public class AuthenticationController {
     public String showContactPage() {
         return "auth/contact";
     }
-
-
 
 
     @GetMapping("/logout")

@@ -1,8 +1,10 @@
 package com.ICS499.Application.controllers;
 
+import com.ICS499.Application.Restaurant;
 import com.ICS499.Application.User;
 import com.ICS499.Application.model.OrderItem;
 import com.ICS499.Application.repositories.FoodItemRepository;
+import com.ICS499.Application.repositories.RestaurantRepository;
 import com.ICS499.Application.repositories.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,8 @@ public class DashboardController {
     private UserRepository userRepository;
     @Autowired
     private FoodItemRepository foodItemRepository;
+    @Autowired
+    private RestaurantRepository restaurantRepository;
 
     @Setter
     @Getter
@@ -70,12 +73,8 @@ public class DashboardController {
 
         model.addAttribute("offers", offers);
 
-        // Sample restaurants data
-        List<Restaurant> restaurants = Arrays.asList(
-                new Restaurant("Burger House", 4.5),
-                new Restaurant("Vegan Delight", 4.2),
-                new Restaurant("Pizza Corner", 4.7)
-        );
+        // Load restaurants from the database
+        List<Restaurant> restaurants = restaurantRepository.findAll();
         model.addAttribute("restaurants", restaurants);
 
         int cartCount = getCartCount(session);
@@ -90,9 +89,6 @@ public class DashboardController {
 
     }
 
-    public record Restaurant(String name, double rating) {
-
-    }
     // profile
     @GetMapping("/profile")
     public String getProfile(Model model, HttpSession session) {

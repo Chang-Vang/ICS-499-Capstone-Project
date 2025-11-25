@@ -30,6 +30,12 @@
     <div class="signup-wrapper">
         <div class="form-box register">
             <h2 style=";">Register</h2>
+
+            <!-- Error message display -->
+            <div th:if="${error}" style="color: red; margin-bottom: 10px;">
+                <p th:text="${error}"></p>
+            </div>
+
             <form th:action="@{/register}" method="post" class="signup-form">
 
                 <!-- First Name Field -->
@@ -53,12 +59,12 @@
                     <label for="email">Email</label>
                 </div>
 
-                <!--    Address -->
+                <!--    Street -->
                 <div class="input-box textarea-box">
                     <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
-                    <textarea id="address" name="address" placeholder=" " required></textarea>
-                    <label for="address">
-                        Address<br>
+                    <textarea id="street" name="street" placeholder=" " required></textarea>
+                    <label for="street">
+                        Street<br>
                         <span style="font-size: 0.85em; opacity: 0.8;"></span>
                     </label>
                 </div>
@@ -105,29 +111,13 @@
                     <label for="confirmPassword">Confirm Password</label>
                 </div>
 
-
-                <!--  Role selection  -->
-                <div class="role-box">
-                  <label class="role-label">Select Role</label>
-
-                    <div class="role-options">
-                        <label class="role-option">
-                            <input type="radio" name="role" value="CUSTOMER"  required>
-                            Student / Customer
-                        </label>
-                        <label class="role-option">
-                            <input type="radio" name="role" value="OWNER" required>
-                            Restaurent Owner
-                        </label>
-                    </div>
-                </div>
                 <button type="submit" class="signup-btn">Sign Up</button>
             </form>
             <a th:href="@{/login}" class="back-link">Back to Login page</a>
         </div>
     </div>
 </div>
-<script src="/script.js"></script>
+<script src="/js/script.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

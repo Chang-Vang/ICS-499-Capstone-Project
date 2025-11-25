@@ -32,6 +32,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "restaurant_owner")
+    private Boolean isRestaurant_owner;
+
     @Column(name = "firstName")
     private String firstName;
 

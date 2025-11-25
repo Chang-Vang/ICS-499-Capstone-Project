@@ -1,21 +1,40 @@
 package com.ICS499.Application.model;
 
+import com.ICS499.Application.User;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "address")
 public class Address {
-    private final String streetAddress;
-    private final String city;
-    private final String state;
-    private final Integer zipCode;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    public Address(String streetAddress, String city, String state, Integer zipCode) {
-        this.streetAddress = streetAddress;
-        this.city = city;
-        this.state = state;
-        this.zipCode = zipCode;
-    }
+    @Column(name = "street")
+    private String street;
 
-    @Override
-    public String toString() {
-        return String.format("%s, %s, %s %d", streetAddress, city, state, zipCode);
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "state")
+    private String state;
+
+    @Column(name = "zipcode")
+    private Long zipCode;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Address(String street, String city, String state, Long zipCode) {
     }
 }

@@ -15,7 +15,7 @@ public class Order {
         this.payment = pay;
      }
 
-     public void addCustomer(String name, String streetAddress,String city, String state, int zipCode, String phoneNum, String email ){
+     public void addCustomer(String name, String streetAddress,String city, String state, Long zipCode, String phoneNum, String email ){
         Customer customer = new Customer(name, streetAddress, city, state, zipCode, phoneNum, email);
      }
 

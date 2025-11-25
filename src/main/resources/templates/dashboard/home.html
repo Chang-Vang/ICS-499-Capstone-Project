@@ -12,7 +12,7 @@
     <header class="header">
         <h1>Welcome, <span th:text="${fullName}">User</span></h1>
         <div class="header-icons">
-            <button class="icon-btn">🔔</button>
+<!--            <button class="icon-btn">🔔</button>--> <!-- Notifications icon (commented out) -->
 
             <div class="cart-wrapper" onclick="window.location.href='/cart'">
                 <span class="cart-icon">🛒</span>
@@ -57,7 +57,8 @@
         <div class="cards-container">
             <div class="restaurant-card" th:each="restaurant : ${restaurants}">
                 <p th:text="${restaurant.name}">Restaurant Name</p>
-                <p class="rating" th:text="'⭐ ' + ${restaurant.rating}">⭐ 0.0</p>
+                <p class="rating" th:text="${restaurant.category} != null ? ${restaurant.category} : 'Restaurant'">Category</p>
+                <p th:text="${restaurant.location} != null ? ${restaurant.location} : 'Location not set'">Location</p>
             </div>
         </div>
     </section>

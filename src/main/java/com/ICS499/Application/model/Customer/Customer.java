@@ -8,11 +8,11 @@ public class Customer {
     private final String phone;
     private Address address;
 
-    public Customer(String name, String streetAddress, String city, String State, Integer ZipCode, String PhoneNumber, String email) {
+    public Customer(String name, String street, String city, String state, Long zipCode, String phoneNumber, String email) {
         this.name = name;
-        this.phone = PhoneNumber;
+        this.phone = phoneNumber;
         this.email = email;
-        this.address = new Address(streetAddress, city, State, ZipCode);
+        this.address = new Address(street, city, state, zipCode);
     }
 
     @Override
