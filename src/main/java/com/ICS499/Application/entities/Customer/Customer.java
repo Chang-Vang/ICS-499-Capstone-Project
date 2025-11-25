@@ -1,6 +1,6 @@
-package com.ICS499.Application.model.Customer;
+package com.ICS499.Application.entities.Customer;
 
-import com.ICS499.Application.model.Address;
+import com.ICS499.Application.entities.Address;
 
 public class Customer {
     private final String name;

@@ -1,16 +1,15 @@
 package com.ICS499.Application;
 
 import jakarta.persistence.*;
-//import lombok.Getter;
-//import lombok.Setter;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
-//@Getter
-//@Setter
+@Getter
+@Setter
 @Entity
 @Table(name = "restaurant")
 public class Restaurant {
@@ -31,25 +30,10 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     private Set<FoodItem> foodItems = new HashSet<>();
 
-    public Long getId() {return id;}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User owner;
 
-    public void setId(Long id) {this.id = id;}
-
-    public String getName() {return name;}
-
-    public void setName(String name) {this.name = name;}
-
-    public String getLocation() {return location;}
-
-    public void setLocation(String location) {this.location = location;}
-
-    public String getCategory() {return category;}
-
-    public void setCategory(String category) {this.category = category;}
-
-    public Set<FoodItem> getFoodItems() {return foodItems;}
-
-    public void setFoodItems(Set<FoodItem> foodItems) {this.foodItems = foodItems;}
 
     @Override
     public boolean equals(Object o) {

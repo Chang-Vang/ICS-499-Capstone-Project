@@ -1,7 +1,7 @@
 package com.ICS499.Application.controllers;
 
 import com.ICS499.Application.FoodItem;
-import com.ICS499.Application.model.OrderItem;
+import com.ICS499.Application.entities.OrderItem;
 import com.ICS499.Application.repositories.FoodItemRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

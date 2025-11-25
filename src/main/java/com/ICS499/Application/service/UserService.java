@@ -1,7 +1,7 @@
 package com.ICS499.Application.service;
 
         import com.ICS499.Application.User;
-        import com.ICS499.Application.model.Address;
+        import com.ICS499.Application.entities.Address;
         import com.ICS499.Application.repositories.AddressRepository;
         import com.ICS499.Application.repositories.UserRepository;
         import lombok.AllArgsConstructor;

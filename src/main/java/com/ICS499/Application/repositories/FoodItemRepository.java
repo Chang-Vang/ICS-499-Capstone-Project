@@ -1,7 +1,6 @@
 package com.ICS499.Application.repositories;
 
 import com.ICS499.Application.FoodItem;
-import jdk.jfr.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

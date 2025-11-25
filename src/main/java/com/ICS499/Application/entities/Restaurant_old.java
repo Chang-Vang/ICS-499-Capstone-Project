@@ -1,4 +1,4 @@
-package com.ICS499.Application.model;
+package com.ICS499.Application.entities;
 
 public class Restaurant_old {
     private int id;

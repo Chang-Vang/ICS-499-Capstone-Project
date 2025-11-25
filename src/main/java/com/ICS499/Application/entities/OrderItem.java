@@ -1,4 +1,4 @@
-package com.ICS499.Application.model;
+package com.ICS499.Application.entities;
 
 import com.ICS499.Application.FoodItem;
 

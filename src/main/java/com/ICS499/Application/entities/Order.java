@@ -1,6 +1,6 @@
-package com.ICS499.Application.model;
+package com.ICS499.Application.entities;
 
-import com.ICS499.Application.model.Customer.Customer;
+import com.ICS499.Application.entities.Customer.Customer;
 
 public class Order {
     private OrderItem[] orderItem;

@@ -1,9 +1,11 @@
 package com.ICS499.Application.controllers;
 
+import com.ICS499.Application.Restaurant;
 import com.ICS499.Application.User;
 import com.ICS499.Application.dto.RegistrationFormForCustomer;
-import com.ICS499.Application.model.Address;
+import com.ICS499.Application.entities.Address;
 import com.ICS499.Application.repositories.AddressRepository;
+import com.ICS499.Application.repositories.RestaurantRepository;
 import com.ICS499.Application.repositories.UserRepository;
 import com.ICS499.Application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class AuthenticationController {
     private UserService userService;
     @Autowired
     private AddressRepository addressRepository;
+    @Autowired
+    private RestaurantRepository restaurantRepository;
 
     @GetMapping("/")
     public String index() {
@@ -47,7 +51,13 @@ public class AuthenticationController {
 
             if (user != null && user.getPassword().equals(password)) {
                 session.setAttribute("email", email);
+//                session.setAttribute("user", user);
+
+                // Redirect based on user's role
                 if (Boolean.TRUE.equals(user.getIsRestaurant_owner())) {
+                    // ✔ Load the restaurant that belongs to the user
+//                    Restaurant restaurant = restaurantRepository.findByOwner(user);
+//                    session.setAttribute("restaurant", restaurant);
                     return "redirect:/owner/dashboard";
                 }
                 return "redirect:/home";
@@ -59,7 +69,7 @@ public class AuthenticationController {
         } catch (Exception ex) {
             // In case of any repository/database error, do not redirect to /error.
             // Show a generic login error on the same page so the user is informed.
-            model.addAttribute("error", "Invalid email or password");
+            model.addAttribute("error", "Other error: " + ex.getMessage());
             return "auth/login";
         }
     }

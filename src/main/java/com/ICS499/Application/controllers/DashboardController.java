@@ -2,7 +2,7 @@ package com.ICS499.Application.controllers;
 
 import com.ICS499.Application.Restaurant;
 import com.ICS499.Application.User;
-import com.ICS499.Application.model.OrderItem;
+import com.ICS499.Application.entities.OrderItem;
 import com.ICS499.Application.repositories.FoodItemRepository;
 import com.ICS499.Application.repositories.RestaurantRepository;
 import com.ICS499.Application.repositories.UserRepository;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 public class DashboardController {
@@ -81,6 +82,27 @@ public class DashboardController {
         model.addAttribute("cartCount", cartCount);
 
         return "/dashboard/home";
+    }
+
+    @GetMapping("/owner/dashboard")
+    public String getOwnerDashboard(Model model, HttpSession session) {
+        String email = (String) session.getAttribute("email");
+        if (email == null) {
+            return "redirect:/login";
+        }
+
+        User user = userRepository.findByEmail(email);
+
+        String fullName = "Owner";
+        if (user.getFirstName() != null || user.getLastName() != null) {
+            String first = Objects.toString(user.getFirstName(), "");
+            String last = Objects.toString(user.getLastName(), "");
+            fullName = (first + " " + last).trim();
+            if (fullName.isBlank()) fullName = user.getEmail();
+        }
+
+        model.addAttribute("fullName", fullName);
+        return "/dashboard/owner-home";
     }
 
     // Inner classes for data models,
