@@ -11,7 +11,9 @@
     <nav class="navigation">
         <a th:href="@{/about}">About</a>
         <a th:href="@{/contact}">Contact</a>
-        <button class="btnLogin-popup">Owner Register</button>
+        <a th:href="@{/login}">
+            <button class="btnLogin-popup">Login</button>
+        </a>
     </nav>
 </header>
 
@@ -78,8 +80,7 @@
             <button type="submit" class="btn">Register</button>
 
             <div class="login-register">
-                <p>Already an owner? <a th:href="@{/owner-login}">Login here</a></p>
-                <p>Home Page?</p> <a th:href="@{/login}">Home Page</a>
+                <p>Already an owner? <a th:href="@{/login}">Login here</a></p>
             </div>
         </form>
     </div>

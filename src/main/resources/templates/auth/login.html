@@ -50,9 +50,17 @@
             </div>
             <button type="submit" class="btn">Login</button>
             <div class="login-register">
-                <p>Don't have an account? <a  th:href="@{/register}">Register</a></p>
-                <p class="owner-link">
-                    Restaurant owner? <a th:href="@{/owner-login}">Click here</a>
+                <p>Don't have an account? </p>
+                <p>
+                    <a th:href="@{/register}">
+                        <span class="register-text"> Register as </span>
+                        <span class="highlight-role">Customer</span>
+                    </a>
+                    <br>
+                    <a th:href="@{/owner-register}">
+                        <span class="register-text"> Register as </span>
+                        <span class="highlight-role">Restaurant Owner</span>
+                    </a>
                 </p>
             </div>
         </form>
