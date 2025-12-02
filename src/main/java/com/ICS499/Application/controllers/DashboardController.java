@@ -105,8 +105,6 @@ public class DashboardController {
         return "/dashboard/owner-home";
     }
 
-    // Inner classes for data models,
-    // only used for example right now, need to integrate with database.
     public record Offer(Long foodId, String description, String price) {
 
     }

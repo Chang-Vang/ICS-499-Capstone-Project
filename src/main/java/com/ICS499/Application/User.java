@@ -1,15 +1,12 @@
 package com.ICS499.Application;
 
+import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Setter
 @Getter
@@ -53,6 +50,9 @@ public class User {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference // pairs with Restaurant.owner (@JsonBackReference)
+    private List<Restaurant> restaurants;
 
     @Override
     public final boolean equals(Object o) {

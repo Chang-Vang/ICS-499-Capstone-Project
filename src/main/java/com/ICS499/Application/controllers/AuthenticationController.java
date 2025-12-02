@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.Collections;
+import java.util.List;
+
+
 @Controller
 public class AuthenticationController {
 
@@ -51,13 +55,25 @@ public class AuthenticationController {
 
             if (user != null && user.getPassword().equals(password)) {
                 session.setAttribute("email", email);
-//                session.setAttribute("user", user);
+                session.setAttribute("user", user);
 
                 // Redirect based on user's role
                 if (Boolean.TRUE.equals(user.getIsRestaurant_owner())) {
-                    // ✔ Load the restaurant that belongs to the user
-//                    Restaurant restaurant = restaurantRepository.findByOwner(user);
-//                    session.setAttribute("restaurant", restaurant);
+//                  Load the restaurant that belongs to the user
+//                  Restaurant restaurant = restaurantRepository.findByOwner(user);
+                  List<Restaurant> restaurants = restaurantRepository.findAllByOwner(user);
+
+//                    List<Restaurant> restaurants = Collections.singletonList(restaurantRepository.findByOwnerId(user.getId()));
+                    Restaurant restaurant = restaurants.get(0); // return the first restaurant
+                    session.setAttribute("restaurant", restaurant);
+
+
+                    // Was Testing redirect to owner dashboard and trying to pass restaurant list
+                    // UPDATE: Didn't work^ so ended up passing single restaurant
+
+//                    System.out.println(session.getAttribute("restaurant"));
+//                    System.out.println("===================================");
+
                     return "redirect:/owner/dashboard";
                 }
                 return "redirect:/home";
@@ -181,12 +197,6 @@ public class AuthenticationController {
             }
         }
         return "redirect:/login";
-    }
-
-    // restaurant owner
-    @GetMapping("/owner-login")
-    public String showOwnerLoginPage() {
-        return "auth/owner-login";
     }
 
     @GetMapping("/owner-register")

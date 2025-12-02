@@ -1,9 +1,10 @@
-// language: java
 package com.ICS499.Application.controllers;
 
 import com.ICS499.Application.FoodItem;
 import com.ICS499.Application.Restaurant;
 import com.ICS499.Application.repositories.FoodItemRepository;
+import com.ICS499.Application.repositories.RestaurantRepository;
+import com.ICS499.Application.repositories.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,15 +24,27 @@ public class OwnerFoodController {
     @Autowired
     private FoodItemRepository foodItemRepository;
 
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     private final Path uploadDir = Paths.get("src/main/resources/static/uploads/owner");
 
     public OwnerFoodController() throws IOException {
         Files.createDirectories(uploadDir);
     }
 
+    // Return only food items for the restaurant stored in the session
     @GetMapping
-    public List<FoodItem> listAll() {
-        return foodItemRepository.findAll();
+    public List<FoodItem> listAll(HttpSession session) {
+        Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+        if (restaurant == null) {
+            // Not a logged-in owner / not associated with a restaurant -> return empty list
+            return Collections.emptyList();
+        }
+        return foodItemRepository.findAllByRestaurant(restaurant);
     }
 
     @PostMapping(consumes = {"multipart/form-data"})
@@ -41,6 +55,9 @@ public class OwnerFoodController {
             @RequestParam String category,
             @RequestParam(required = false) MultipartFile image,
             HttpSession session) throws IOException {
+
+
+        System.out.println(session.getAttribute("user"));
 
         if (name == null || name.isBlank()) {
             return ResponseEntity.badRequest().body("Name is required");
@@ -63,12 +80,26 @@ public class OwnerFoodController {
 //            item.setImageUrl("/uploads/owner/" + filename);
 //        }
 
+        // Passing Restaurant is not working properly, need to fix or find alternative
+//        Restaurant restaurant;
+//        try {
+//            User user = (User) session.getAttribute("user");
+//            var session_restaurant = session.getAttribute("restaurant");
+//
+//            List<Restaurant> restaurants = Collections.singletonList(restaurantRepository.findByOwnerId(user.getId()));
+//            restaurant = restaurants.get(0); // return the first restaurant
+//        } catch (Exception e) {
+//            return ResponseEntity.status(403).body("Unauthorized: No session found");
+//        }
+
+
         Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
         if (restaurant == null) {
             return ResponseEntity.status(401).body("Not logged in as restaurant owner");
         }
 
         item.setRestaurant(restaurant);
+
 
         FoodItem saved = foodItemRepository.save(item);
         return ResponseEntity.ok(saved);

@@ -86,6 +86,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }[m]));
     }
 
+
+    async function loadRestaurants() {
+        try {
+            const res = await fetch('/api/owner/restaurants');
+            if (!res.ok) throw await res.text();
+            const restaurants = await res.json();
+
+            const sel = document.getElementById('restaurantSelector');
+            sel.innerHTML = restaurants
+                .map(r => `<option value="${r.id}">${r.name}</option>`)
+                .join('');
+
+            sel.addEventListener('change', async () => {
+                try {
+                    const r = await fetch(`/api/owner/restaurants/select/${sel.value}`, { method: 'POST' });
+                    if (!r.ok) throw await r.text();
+                    showToast('Restaurant selected');
+                    await loadFoodItems();
+                    await loadDeals();
+                } catch (err) {
+                    showToast('Failed to select restaurant', true);
+                }
+            });
+        } catch (err) {
+            showToast('Failed to load restaurants', true);
+        }
+    }
+
     /* ------------------------------------------------------------------
        MODAL HANDLERS
     ------------------------------------------------------------------ */
@@ -148,15 +176,16 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadFoodItems() {
         showLoading(foodLoading, true);
         foodListEl.innerHTML = '';
-
         try {
             const items = await fetchData('/api/owner/food');
             items.forEach(renderFoodItem);
+            console.log('Loaded items:', items);
         } catch (err) {
             showToast('Failed to load food items', true);
         } finally {
             showLoading(foodLoading, false);
         }
+
     }
 
     async function loadDeals() {
@@ -328,4 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadFoodItems();
     loadDeals();
+    loadRestaurants();
+
+
 });

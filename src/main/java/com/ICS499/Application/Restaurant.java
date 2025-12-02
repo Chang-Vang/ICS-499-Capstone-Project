@@ -1,10 +1,14 @@
 package com.ICS499.Application;
 
+import com.ICS499.Application.entities.Deal;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -28,11 +32,17 @@ public class Restaurant {
     private String category;
 
     @OneToMany(mappedBy = "restaurant")
+    @JsonManagedReference // prevents serializing back into FoodItem.restaurant
     private Set<FoodItem> foodItems = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonBackReference // paired with User.restaurants
     private User owner;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @JsonManagedReference("restaurant-deals") // paired with Deal.restaurant
+    private List<com.ICS499.Application.entities.Deal> deals;
 
 
     @Override

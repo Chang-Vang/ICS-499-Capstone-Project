@@ -1,5 +1,7 @@
 package com.ICS499.Application.entities;
 
+import com.ICS499.Application.Restaurant;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,5 +38,11 @@ public class Deal {
 
     @Column(name = "applicableItemIds", length = 1000)
     private String applicableItemIds;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    @JsonBackReference("restaurant-deals") // paired with Restaurant.deals
+    private Restaurant restaurant;
+
 
 }

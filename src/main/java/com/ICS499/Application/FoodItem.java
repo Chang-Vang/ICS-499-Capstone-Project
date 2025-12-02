@@ -1,5 +1,6 @@
 package com.ICS499.Application;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +29,7 @@ public class FoodItem {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "restaurant_id")
+    @JsonBackReference // prevents serializing Restaurant -> FoodItem -> Restaurant cycle
     private Restaurant restaurant;
 
     public Long getId() {

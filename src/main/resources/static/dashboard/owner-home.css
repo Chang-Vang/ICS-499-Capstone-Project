@@ -25,6 +25,37 @@ body {
     z-index:100;
 }
 
+.nav-controls {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+    gap: 8px;
+}
+
+.restaurant-selector {
+    padding: 6px 10px;
+    border: 1px solid #e6e9ef;
+    border-radius: 6px;
+    background: #fff;
+    color: #111;
+    min-width: 180px;
+}
+
+/* Utility for screen-reader-only label */
+.visually-hidden {
+    position: absolute !important;
+    height: 1px; width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap; /* prevent the element from expanding */
+}
+
+/* Responsive: make selector smaller on narrow screens */
+@media (max-width: 640px) {
+    .restaurant-selector { min-width: 120px; padding: 6px 8px; }
+    .nav-links { display: none; } /* optional: hide links on very small screens */
+}
+
 .brand {
     font-weight:700;
     color:var(--accent);
