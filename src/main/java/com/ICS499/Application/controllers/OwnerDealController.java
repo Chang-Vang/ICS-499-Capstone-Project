@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +21,25 @@ public class OwnerDealController {
     @Autowired
     private DealRepository dealRepository;
 
+//    Returning deals from all restaurants - not appropriate for owner view
+//    @GetMapping
+//    public List<Deal> listAll() {
+//        return dealRepository.findAll();
+//    }
+
+    // Return deals only for the restaurant in the session
     @GetMapping
-    public List<Deal> listAll() {
-        return dealRepository.findAll();
+    public List<Deal> listDealsForRestaurant(HttpSession session) {
+
+        Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+
+        if (restaurant == null) {
+            // No restaurant in session → return empty list
+            return Collections.emptyList();
+        }
+
+        // Fetch deals specifically for this restaurant
+        return dealRepository.findAllByRestaurant(restaurant);
     }
 
     @PostMapping
