@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -108,6 +109,32 @@ public class DashboardController {
     public record Offer(Long foodId, String description, String price) {
 
     }
+
+    // Controller to handle which restaurant menu to view
+    @GetMapping("/restaurant/{id}")
+    public String viewRestaurant(
+            @PathVariable Long id,
+            Model model,
+            HttpSession session
+    ) {
+        Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
+        if (restaurant == null) {
+            return "redirect:/home";
+        }
+
+        // Add restaurant details
+        model.addAttribute("restaurant", restaurant);
+
+        // Get the food items for this restaurant
+        model.addAttribute("foodItems", restaurant.getFoodItems());
+
+        // Add cart count
+        int cartCount = getCartCount(session);
+        model.addAttribute("cartCount", cartCount);
+
+        return "dashboard/restaurant-menu";
+    }
+
 
     // profile
     @GetMapping("/profile")

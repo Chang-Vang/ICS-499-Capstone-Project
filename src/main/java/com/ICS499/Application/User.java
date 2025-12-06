@@ -51,7 +51,8 @@ public class User {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference // pairs with Restaurant.owner (@JsonBackReference)
+    @JsonManagedReference
+    @ToString.Exclude // pairs with Restaurant.owner (@JsonBackReference)
     private List<Restaurant> restaurants;
 
     @Override

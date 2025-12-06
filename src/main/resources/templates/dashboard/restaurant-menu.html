@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${restaurant.name} + ' Menu'">Menu</title>
+    <link rel="stylesheet" th:href="@{/dashboard/home.css}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <header class="header">
+        <h1 th:text="${restaurant.name}">Restaurant</h1>
+
+        <div class="header-icons">
+            <div class="cart-wrapper" onclick="window.location.href='/cart'">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-count"
+                      th:if="${cartCount > 0}"
+                      th:text="${cartCount}"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Section -->
+    <section class="section">
+        <h2>Menu</h2>
+
+        <div class="cards-container">
+            <div class="card" th:each="food : ${foodItems}">
+                <h3 th:text="${food.name}">Food Name</h3>
+                <p th:text="${food.description}">Description</p>
+                <p th:text="'$' + ${food.price}">0.00</p>
+
+                <form th:action="@{/cart/add}" method="post">
+                    <input type="hidden" name="foodId" th:value="${food.id}">
+                    <button type="submit" class="order-btn">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- Bottom Navigation - same as the previous pages -->
+<nav class="bottom-nav">
+    <form action="/home" method="get" style="display: contents">
+        <button type="submit" class="nav-btn">🏠<br/>Home</button>
+    </form>
+    <form action="/search" method="get" style="display: contents">
+        <button type="submit" class="nav-btn">🔍<br/>Search</button>
+    </form>
+    <form action="/order" method="get" style="display: contents">
+        <button type="submit" class="nav-btn">📝<br/>Order</button>
+    </form>
+    <form action="/profile" method="get" style="display: contents">
+        <button type="submit" class="nav-btn">👤<br/>Profile</button>
+    </form>
+</nav>
+
+</body>
+</html>

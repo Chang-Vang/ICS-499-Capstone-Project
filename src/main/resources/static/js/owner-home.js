@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Escape closes all modals
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             document.querySelectorAll('.modal').forEach(m => closeModal(m));
@@ -86,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }[m]));
     }
 
-
     async function loadRestaurants() {
         try {
             const res = await fetch('/api/owner/restaurants');
@@ -118,12 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
        MODAL HANDLERS
     ------------------------------------------------------------------ */
 
-    // FOOD MODAL
     btnNewFood.addEventListener('click', () => openFoodModal());
     foodCancel.addEventListener('click', () => closeModal(modalFood));
     enableOverlayClose(modalFood);
 
-    // DEAL MODAL
     btnNewDeal.addEventListener('click', () => openDealModal());
     dealCancelBtn.addEventListener('click', () => closeModal(modalDeal));
     enableOverlayClose(modalDeal);
@@ -164,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ------------------------------------------------------------------
-       DATA LOADING + RENDERING
+       DATA LOADING
     ------------------------------------------------------------------ */
 
     async function fetchData(url, options = {}) {
@@ -179,13 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const items = await fetchData('/api/owner/food');
             items.forEach(renderFoodItem);
-            console.log('Loaded items:', items);
         } catch (err) {
             showToast('Failed to load food items', true);
         } finally {
             showLoading(foodLoading, false);
         }
-
     }
 
     async function loadDeals() {
@@ -265,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ------------------------------------------------------------------
-       CRUD FUNCTIONS
+       CRUD
     ------------------------------------------------------------------ */
 
     foodForm.addEventListener('submit', async (e) => {
@@ -293,18 +287,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ✔ FIXED: Deal form now sends JSON instead of FormData
     dealForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const id = dealForm.id.value;
         const url = id ? `/api/owner/deals/${id}` : '/api/owner/deals';
         const method = id ? 'PUT' : 'POST';
-        const payload = Object.fromEntries(new FormData(dealForm));
+
+        const payload = {
+            title: dealForm.title.value,
+            description: dealForm.description.value,
+            discountValue: parseFloat(dealForm.discountValue.value),
+            discountType: dealForm.discountType.value,
+            startDate: dealForm.startDate.value,
+            endDate: dealForm.endDate.value,
+            applicableItemIds: dealForm.applicableItemIds.value
+        };
 
         try {
             const res = await fetch(url, {
                 method,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
 
@@ -358,6 +362,5 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFoodItems();
     loadDeals();
     loadRestaurants();
-
 
 });

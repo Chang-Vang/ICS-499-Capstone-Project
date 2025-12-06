@@ -1,11 +1,11 @@
-// language: java
 package com.ICS499.Application.controllers;
 
+import com.ICS499.Application.Restaurant;
+import com.ICS499.Application.dto.DealDTO;
 import com.ICS499.Application.entities.Deal;
 import com.ICS499.Application.repositories.DealRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,48 +27,43 @@ public class OwnerDealController {
 
     @PostMapping
     public ResponseEntity<?> createDeal(
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam Double discountValue,
-            @RequestParam String discountType,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @RequestParam(required = false) String applicableItemIds,
-            HttpSession session) {
+            @RequestBody DealDTO dto,
+            HttpSession session
+    ) {
 
-        if (title == null || title.isBlank()) return ResponseEntity.badRequest().body("Title required");
-        if (discountValue == null || discountValue < 0) return ResponseEntity.badRequest().body("Invalid discount");
+        Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+        if (restaurant == null) {
+            return ResponseEntity.status(400).body("No active restaurant selected");
+        }
 
         Deal d = new Deal();
-        return getResponseEntity(title, description, discountValue, discountType, startDate, endDate, applicableItemIds, d);
+        mapDtoToDeal(dto, d);
+        d.setRestaurant(restaurant);
+
+        Deal saved = dealRepository.save(d);
+        return ResponseEntity.ok(saved);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateDeal(
             @PathVariable Long id,
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam Double discountValue,
-            @RequestParam String discountType,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @RequestParam(required = false) String applicableItemIds) {
+            @RequestBody DealDTO dto,
+            HttpSession session
+    ) {
 
         Optional<Deal> opt = dealRepository.findById(id);
-        if (opt.isEmpty()) return ResponseEntity.notFound().build();
+        if (opt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
 
         Deal d = opt.get();
-        return getResponseEntity(title, description, discountValue, discountType, startDate, endDate, applicableItemIds, d);
-    }
 
-    private ResponseEntity<?> getResponseEntity(@RequestParam String title, @RequestParam String description, @RequestParam Double discountValue, @RequestParam String discountType, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate startDate, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate endDate, @RequestParam(required = false) String applicableItemIds, Deal d) {
-        d.setTitle(title);
-        d.setDescription(description);
-        d.setDiscountValue(discountValue);
-        d.setDiscountType(discountType);
-        d.setStartDate(startDate);
-        d.setEndDate(endDate);
-        d.setApplicableItemIds(applicableItemIds);
+        Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+        if (restaurant == null || d.getRestaurant().getId() != restaurant.getId()) {
+            return ResponseEntity.status(403).body("Deal does not belong to your restaurant");
+        }
+
+        mapDtoToDeal(dto, d);
 
         Deal saved = dealRepository.save(d);
         return ResponseEntity.ok(saved);
@@ -76,8 +71,20 @@ public class OwnerDealController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDeal(@PathVariable Long id) {
-        if (!dealRepository.existsById(id)) return ResponseEntity.notFound().build();
+        if (!dealRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
         dealRepository.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+
+    private void mapDtoToDeal(DealDTO dto, Deal d) {
+        d.setTitle(dto.title);
+        d.setDescription(dto.description);
+        d.setDiscountValue(dto.discountValue);
+        d.setDiscountType(dto.discountType);
+        d.setStartDate(LocalDate.parse(dto.startDate));
+        d.setEndDate(LocalDate.parse(dto.endDate));
+        d.setApplicableItemIds(dto.applicableItemIds);
     }
 }

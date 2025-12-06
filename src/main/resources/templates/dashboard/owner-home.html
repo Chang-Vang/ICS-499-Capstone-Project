@@ -74,7 +74,8 @@
 
 <!-- DEAL MODAL -->
 <div id="modal-deal" class="modal hidden">
-    <form id="deal-form" class="modal-form">
+<!--    Added enctype="multipart/form-data" to pass in the form-->
+    <form id="deal-form" class="modal-form" enctype="multipart/form-data">
         <input type="hidden" name="id" />
         <h3 id="deal-form-title">New Deal</h3>
         <label>Title<input name="title" required /></label>
