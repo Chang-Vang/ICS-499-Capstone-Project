@@ -9,7 +9,7 @@
 <body>
 <div class="dashboard">
     <!-- Header -->
-    <header class="header">
+    <header class="header" >
         <h1>Welcome, <span th:text="${fullName}">User</span></h1>
         <div class="header-icons">
 <!--            <button class="icon-btn">🔔</button>--> <!-- Notifications icon (commented out) -->
@@ -36,7 +36,7 @@
     </section>
 
     <!-- Best Offers -->
-    <section class="section">
+    <section class="section" >
         <h2>Best offers</h2>
         <div class="cards-container">
             <div class="card" th:each="offer : ${offers}">
@@ -67,7 +67,7 @@
 </div>
 
 <!-- Bottom Navigation -->
-<nav class="bottom-nav">
+<nav class="bottom-nav"  style="background-color: #d16d37" >
     <form action="/home" method="get" style="display: contents">
         <button type="submit" class="nav-btn" title="Home">🏠<br/>Home</button>
     </form>

@@ -8,8 +8,8 @@
 </head>
 <body>
 
-<nav class="top-nav">
-    <div class="brand">MyRestaurant</div>
+<nav class="top-nav" style="background-color:#d16d37">
+    <div class="brand" style="color: #0e0e0c">MyRestaurant</div>
 
     <div class="nav-controls">
         <label for="restaurantSelector" class="visually-hidden">Select Restaurant:</label>
@@ -24,20 +24,22 @@
     </div>
 </nav>
 
-<main class="container">
+<main class="container" >
     <header class="hero">
         <h1>Welcome, <span th:text="${fullName}">Owner</span></h1>
         <p class="subtitle">Manage your menu and deals</p>
     </header>
 
     <!-- FOOD SECTION -->
-    <section id="food-section" class="panel">
-        <div class="panel-header">
+    <section id="food-section" class="panel"  style="background-color: rgb(243, 176, 121)">
+        <div class="panel-header"  style="background-color: rgb(243, 176, 121)">
             <h2>Food Items</h2>
             <button id="btn-new-food" class="primary">+ New Item</button>
         </div>
+        <div style="background-color:  rgb(243, 176, 121)">
         <div id="food-loading" class="loading">Loading food items...</div>
         <div id="food-list" class="grid"></div>
+        </div>
     </section>
 
     <!-- DEALS SECTION -->
@@ -73,7 +75,7 @@
 </div>
 
 <!-- DEAL MODAL -->
-<div id="modal-deal" class="modal hidden">
+<div id="modal-deal" class="modal hidden" style="background-color:  rgb(243, 176, 121)">
 <!--    Added enctype="multipart/form-data" to pass in the form-->
     <form id="deal-form" class="modal-form" enctype="multipart/form-data">
         <input type="hidden" name="id" />
