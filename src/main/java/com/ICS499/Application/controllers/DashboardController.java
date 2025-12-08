@@ -3,7 +3,8 @@ package com.ICS499.Application.controllers;
 import com.ICS499.Application.Restaurant;
 import com.ICS499.Application.User;
 import com.ICS499.Application.entities.OrderItem;
-import com.ICS499.Application.repositories.FoodItemRepository;
+import com.ICS499.Application.entities.Deal;
+import com.ICS499.Application.repositories.DealRepository;
 import com.ICS499.Application.repositories.RestaurantRepository;
 import com.ICS499.Application.repositories.UserRepository;
 import jakarta.servlet.http.HttpSession;
@@ -25,7 +26,7 @@ public class DashboardController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private FoodItemRepository foodItemRepository;
+    private DealRepository dealRepository;
     @Autowired
     private RestaurantRepository restaurantRepository;
 
@@ -59,18 +60,12 @@ public class DashboardController {
 
         model.addAttribute("fullName", fullName);
 
-        // Sample offers data
-        var allItems = foodItemRepository.findAll();
-        List<Offer> offers = allItems.stream()
+        // Deals data from deals table
+        List<Deal> deals = dealRepository.findAll().stream()
                 .limit(7)
-                .map(item -> new Offer(
-                        item.getId(),
-                        item.getName(),
-                        "$" + item.getPrice()
-                ))
                 .toList();
 
-        model.addAttribute("offers", offers);
+        model.addAttribute("deals", deals);
 
         // Load restaurants from the database
         List<Restaurant> restaurants = restaurantRepository.findAll();
@@ -106,9 +101,7 @@ public class DashboardController {
         return "/dashboard/owner-home";
     }
 
-    public record Offer(Long foodId, String description, String price) {
-
-    }
+    // Removed Offer record; using Deal entity directly
 
     // Controller to handle which restaurant menu to view
     @GetMapping("/restaurant/{id}")
