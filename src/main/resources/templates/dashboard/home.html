@@ -6,14 +6,17 @@
     <title>Dashboard</title>
     <link rel="stylesheet" th:href="@{/dashboard/home.css}">
 </head>
+
 <body>
 <div class="dashboard">
-    <!-- Header -->
+
+    <!-- HEADER -->
     <header class="header">
         <h1>Welcome, <span th:text="${fullName}">User</span></h1>
-        <div class="header-icons">
-<!--            <button class="icon-btn">🔔</button>--> <!-- Notifications icon (commented out) -->
 
+        <div class="header-right">
+
+            <!-- Cart -->
             <div class="cart-wrapper" onclick="window.location.href='/cart'">
                 <span class="cart-icon">🛒</span>
                 <span class="cart-count"
@@ -21,12 +24,12 @@
                       th:text="${cartCount}">0</span>
             </div>
 
-
-            <a href="/logout" class="logout-btn" title="Log out">Logout</a>
+            <!-- Logout -->
+            <a href="/logout" class="logout-btn">Logout</a>
         </div>
     </header>
 
-    <!-- Offer Banner -->
+    <!-- DEAL BANNER -->
     <section class="offer-banner">
         <img src="/images/burger.webp" alt="Burger" />
         <div class="offer-text">
@@ -35,51 +38,54 @@
         </div>
     </section>
 
-    <!-- Best Offers -->
+    <!-- BEST DEALS -->
     <section class="section">
-        <h2>Best offers</h2>
-        <div class="cards-container">
-            <div class="card" th:each="offer : ${offers}">
-                <p th:text="${offer.description}">Offer description</p>
-                <p th:text="${offer.price}">$0.00</p>
+        <h2>Best deals</h2>
 
-                <form th:action="@{/cart/add}" method="post">
-                    <input type="hidden" name="foodId" th:value="${offer.foodId()}">
-                    <button type="submit" class="order-btn">Add to Cart</button>
-                </form>
+        <div class="cards-container">
+            <div class="card" th:each="deal : ${deals}">
+                <p><strong th:text="${deal.title}">Deal Title</strong></p>
+                <p th:text="${deal.description}">Deal description</p>
+
+                <p>
+                    <span>
+                        From: <span th:text="${deal.startDate}"></span>
+                        →
+                        <span th:text="${deal.endDate}"></span>
+                    </span>
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Restaurants Nearby -->
+    <!-- RESTAURANTS -->
     <section class="section">
         <h2>Restaurants nearby</h2>
-        <div class="restaurant-card"
-             th:each="restaurant : ${restaurants}"
-             th:onclick="'window.location.href=\'/restaurant/' + ${restaurant.id} + '\';'">
 
-            <p th:text="${restaurant.name}">Restaurant Name</p>
-            <p class="rating" th:text="${restaurant.category} ?: 'Restaurant'"></p>
-            <p th:text="${restaurant.location} ?: 'Location not set'"></p>
+        <div class="cards-container">
+            <div class="restaurant-card"
+                 th:each="restaurant : ${restaurants}"
+                 th:onclick="'window.location.href=\'/restaurant/' + ${restaurant.id} + '\';'">
+
+                <p th:text="${restaurant.name}">Restaurant Name</p>
+                <p class="rating" th:text="${restaurant.category} ?: 'Restaurant'"></p>
+                <p th:text="${restaurant.location} ?: 'Location not set'"></p>
+            </div>
         </div>
-
     </section>
+
 </div>
 
-<!-- Bottom Navigation -->
+<!-- BOTTOM NAVIGATION -->
 <nav class="bottom-nav">
     <form action="/home" method="get" style="display: contents">
-        <button type="submit" class="nav-btn" title="Home">🏠<br/>Home</button>
+        <button type="submit" class="nav-btn">🏠<br>Home</button>
     </form>
-    <form action="/search" method="get" style="display: contents">
-        <button type="submit" class="nav-btn" title="Search">🔍<br/>Search</button>
-    </form>
-    <form action="/order" method="get" style="display: contents">
-        <button type="submit" class="nav-btn" title="Order">📝<br/>Order</button>
-    </form>
+
     <form action="/profile" method="get" style="display: contents">
-        <button type="submit" class="nav-btn" title="Profile">👤<br/>Profile</button>
+        <button type="submit" class="nav-btn">👤<br>Profile</button>
     </form>
-    </nav>
+</nav>
+
 </body>
 </html>

@@ -17,22 +17,11 @@ body {
     align-items: center;
 }
 
-.header h1 {
-    margin: 0;
-    font-size: 1.5em;
-}
-
 .header-icons {
     display: flex;
     gap: 10px;
 }
 
-.icon-btn {
-    background: none;
-    border: none;
-    font-size: 1.2em;
-    cursor: pointer;
-}
 
 /* Logout button styling */
 .logout-btn {
