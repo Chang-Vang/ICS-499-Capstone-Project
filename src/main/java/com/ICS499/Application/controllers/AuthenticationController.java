@@ -61,7 +61,7 @@ public class AuthenticationController {
                 if (Boolean.TRUE.equals(user.getIsRestaurant_owner())) {
 //                  Load the restaurant that belongs to the user
 //                  Restaurant restaurant = restaurantRepository.findByOwner(user);
-                  List<Restaurant> restaurants = restaurantRepository.findAllByOwner(user);
+                    List<Restaurant> restaurants = restaurantRepository.findAllByOwner(user);
 
 //                    List<Restaurant> restaurants = Collections.singletonList(restaurantRepository.findByOwnerId(user.getId()));
                     Restaurant restaurant = restaurants.get(0); // return the first restaurant
@@ -131,6 +131,7 @@ public class AuthenticationController {
             return "auth/register";
         }
     }
+
     @GetMapping("/forgot-password")
     public String showForgotPassword() {
         return "auth/forgot-password";
@@ -144,7 +145,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/reset-password")
-    public String showResetPassword(@RequestParam(required = false) String email,Model model) {
+    public String showResetPassword(@RequestParam(required = false) String email, Model model) {
         model.addAttribute("email", email);
         return "auth/reset-password";
     }
@@ -200,9 +201,72 @@ public class AuthenticationController {
     }
 
     @GetMapping("/owner-register")
-    public String showOwnerRegister() {
+    public String showOwnerRegister(Model model) {
+        model.addAttribute("restaurant", new Restaurant());
         return "auth/owner-register";
     }
 
+    @PostMapping("/owner-register")
+    public String handleOwnerRegister(
+            @RequestParam("restaurantName") String restaurantName,
+            @RequestParam("location") String location,
+            @RequestParam("category") String category,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            @RequestParam("confirmPassword") String confirmPassword,
+            HttpSession session,
+            Model model
+    ) {
+        try {
+            // 1. basic password check
+            if (!password.equals(confirmPassword)) {
+                model.addAttribute("restaurant", new Restaurant());
+                model.addAttribute("error", "Passwords do not match");
+                return "auth/owner-register";
+            }
 
+            // 2. find or create user by email
+            User user = userRepository.findByEmail(email);
+            if (user == null) {
+                user = new User();
+                user.setEmail(email);
+                user.setPassword(password);
+                user.setIsRestaurant_owner(true);
+
+                // TODO: if your User entity has NOT NULL fields like phoneNumber, firstName, etc.,
+                // set some default values here to avoid other DB errors.
+                userRepository.save(user);
+            } else {
+                // if user already exists, mark as restaurant owner
+                user.setIsRestaurant_owner(true);
+                userRepository.save(user);
+            }
+
+            // 3. build restaurant entity
+            Restaurant restaurant = new Restaurant();
+            restaurant.setName(restaurantName);
+            restaurant.setLocation(location);
+            restaurant.setCategory(category);
+            restaurant.setEmail(email);
+            restaurant.setPassword(password);
+
+            // 4. ALWAYS set owner to non-null user
+            restaurant.setOwner(user);
+
+            // 5. save restaurant
+            restaurantRepository.save(restaurant);
+
+            // 6. update session and redirect
+            session.setAttribute("email", user.getEmail());
+            session.setAttribute("user", user);
+            session.setAttribute("restaurant", restaurant);
+
+            return "redirect:/owner/dashboard";
+
+        } catch (Exception e) {
+            model.addAttribute("restaurant", new Restaurant());
+            model.addAttribute("error", "Error registering owner: " + e.getMessage());
+            return "auth/owner-register";
+        }
+    }
 }

@@ -25,6 +25,11 @@ public class Restaurant {
     @Column(name = "name")
     private String name;
 
+    private String email;
+    private String password;
+    private String phone;
+
+
     @Column(name = "location")
     private String location;
 
@@ -56,4 +61,6 @@ public class Restaurant {
     public int hashCode() {
         return Objects.hash(id, name, location, category, foodItems);
     }
+
+
 }
