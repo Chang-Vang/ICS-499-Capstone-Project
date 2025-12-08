@@ -1,5 +1,5 @@
 -- Drop the Deals table if it exists
-drop table if exists Deals;
+drop table if exists deals;
 
 create table deals
 (
@@ -11,5 +11,8 @@ create table deals
     discount_type       varchar(255)  not null,
     discount_value      double        not null,
     end_date            date          null,
-    start_date          date          null
+    start_date          date          null,
+    restaurant_id       bigint        not null,
+    constraint deals_restaurant_id_fk
+        foreign key (restaurant_id) references restaurant (id)
 );
