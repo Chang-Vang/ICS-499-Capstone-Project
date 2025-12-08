@@ -124,13 +124,13 @@ body{
     margin-top: 20px;
     font-size: 0.9em;
     font-weight: 600;
-    color: rgb(68, 30, 4);
+    color: rgb(195, 112, 57);
     text-decoration: none;
 }
 
 .back-link:hover {
     text-decoration: underline;
-    color: rgb(124, 69, 23);
+    color: rgb(138, 77, 25);
 }
 
 /*  Role Selection */

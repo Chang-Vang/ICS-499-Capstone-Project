@@ -108,7 +108,7 @@ body {
 /* Offer cards */
 .card, .restaurant-card {
     min-width: 200px;
-    background-color: #e0ffe0;
+    background-color: #edd9cd;
     padding: 10px;
     border-radius: 10px;
     flex-shrink: 0;
@@ -116,8 +116,8 @@ body {
 }
 
 .restaurant-card {
-    background-color: #ffffff;
-    border: 1px solid #ccc;
+    background-color: #c37039;
+    border: 1px solid #edb99d;
     padding: 10px;
     position: relative;
 }
@@ -127,7 +127,7 @@ body {
     top: 10px;
     right: 10px;
     font-size: 0.9em;
-    color: #555;
+    color: #edd9cd;
 }
 
 /* Bottom navigation styles */
@@ -135,12 +135,12 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: white;
     display: flex;
     justify-content: space-around;
     padding: 10px 0;
     box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
     z-index: 1000;
+    background-color: #edb99d;
 }
 
 .nav-btn {

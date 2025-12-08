@@ -1,0 +1,19 @@
+Category:
+American Fast Food
+
+Location:
+[0] 9695 Xenia Avenue North, Brooklyn Park, MN 55443
+[1] 1388 Maryland Avenue, St. Paul, MN 55106
+[2] 9315 Medicine Lake Rd, Golden Valley, MN 55427-3112 
+
+Menu Items:
+"Bacon, Egg & Cheese", "Bacon, Egg & Cheese", Breakfast, $0.00
+Sausage McMuffin with Egg, Sausage McMuffin with Egg, Breakfast, $0.00
+Sausage Biscuit, Sausage Biscuit, Breakfast, $0.00
+Sausage Biscuit with Egg, Sausage Biscuit with Egg, Breakfast, $0.00
+Sausage Biscuit with Egg, Sausage Biscuit with Egg, Breakfast, $0.00
+McNuggets - BBQ, "Chicken McNuggets with BBQ Sauce", Lunch/Dinner, $0.00
+Fries - Large, "Large French Fries", Lunch/Dinner, $0.00
+Dr Pepper - Large, Dr Pepper, Drink, $1.25
+Coca-Cola - Large, Coca Cola, Drink, $1.25
+Coca-Cola - Large, Iced Tea, Drink, $1.25
