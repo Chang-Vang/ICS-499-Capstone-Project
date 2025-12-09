@@ -1,0 +1,41 @@
+@startuml
+title User Login (Role-Based Redirect)
+
+skinparam backgroundColor #FFFFFF
+skinparam activity {
+  BackgroundColor<<User>> #E8F0FE
+  BackgroundColor<<System>> #E8F5E9
+  BorderColor #555555
+}
+
+partition "User" <<User>> {
+  start
+  :Open Login Page;
+  :Enter email and password;
+  :Click "Login";
+}
+
+partition "System" <<System>> {
+  :Receive credentials;
+  :Find user by email;
+  :Validate password;
+
+  if (Credentials valid?) then (No)
+    :Return error message
+    ("Invalid email or password");
+    detach
+  else (Yes)
+    :Create session (store userId/email);
+    :Load user roles;
+    if (Has role "restaurantOwner"?) then (Yes)
+      :Redirect to Owner Dashboard
+      (/owner/dashboard);
+    else (No)
+      :Redirect to Customer Dashboard
+      (/home);
+    endif
+  endif
+}
+
+stop
+@enduml
